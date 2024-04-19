@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="navbar">
         <div class="welcome">Welcome Back!</div>
         <div class="user">
             <img src="" alt="logo" />
@@ -11,33 +11,33 @@
 </template>
 <script>
 export default {
-    
+
 }
 </script>
 <style scoped>
-.container {
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.navbar {
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .user {
-    display: flex;
-    align-items: center; /* Align items vertically */
+  display: flex;
+  align-items: center; /* Align items vertically */
 }
 
 .user img {
-    margin-right: 10px; /* Add margin between the image and userDetail */
+  margin-right: 10px; /* Add margin between the image and userDetail */
 }
 
 .userDetail {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .role {
-    font-weight: 500;
+  font-weight: 500;
 }
 </style>
