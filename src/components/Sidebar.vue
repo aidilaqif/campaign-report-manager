@@ -1,47 +1,51 @@
 <template>
-    <div class="container">
-        <div class="top">
-            <div class="logo">
-                <img src="" alt="logo" />
-            </div>
-            <div class="list">
-                <ul>
-                <li>Home</li>
-                <li>ContentCreators</li>            
-            </ul>
-        </div>
-        <div class="bottom">
-            <ul>
-                <li>LogOut</li>
-            </ul>
-        </div>
-        </div>
+    <div :class="{ 'sidebar-open': isOpen }" class="sidebar">
+      <div class="sidebar-content">
+        <!-- Your sidebar content goes here -->
+        <slot></slot>
+      </div>
+      <button @click="toggleSidebar" class="toggle-button">{{ isOpen ? 'Close' : 'Open' }}</button>
     </div>
-</template>
-
-<script>
-export default {
-    
-}
-</script>
-
-<style scoped>
-    .container{
-        width: 200px;
-        height: 100vh;
-        min-height: 100vh;
-        align-items: stretch;
-        background-color: #5ced73;
-        color: white;
-        padding: 20px;
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        isOpen: false
+      };
+    },
+    methods: {
+      toggleSidebar() {
+        this.isOpen = !this.isOpen;
+      }
     }
-    .logo{
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-    .list{
-        list-style: none;
-    }
-</style>
+  };
+  </script>
+  
+  <style>
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Adjust this value according to your design */
+    width: 250px; /* Adjust this value according to your design */
+    height: 100%;
+    background-color: #333; /* Adjust this value according to your design */
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar-open {
+    left: 0;
+  }
+  
+  .sidebar-content {
+    padding: 20px;
+  }
+  
+  .toggle-button {
+    position: absolute;
+    top: 20px;
+    right: -40px;
+  }
+  </style>
+  
