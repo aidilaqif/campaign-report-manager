@@ -55,14 +55,14 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    width: 200px;
-    height: 100vh;
-    min-height: 100vh;
+    width: 100px;
+    height: 95vh;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #5ced73;
+    background-color: #408A7E;
     color: white;
     padding: 2vw;
   }
@@ -105,7 +105,7 @@ export default {
   }
 
   .list div.selected {
-    color: #5ced73;
+    color: #408A7E;
     transform: scale(1.1);
   }
 
