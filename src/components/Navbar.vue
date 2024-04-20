@@ -1,11 +1,13 @@
 <template>
     <div class="navbar">
-        <div class="welcome">Welcome Back!</div>
+        <div class="welcome">
+          <h1>Welcome Back!</h1>
+        </div>
         <div class="user">
-            <img src="" alt="logo" />
-            <div class="userDetail">
-                <span class="role">Admin</span>
-            </div>
+          <img src="/man.png" alt="logo" />
+          <div class="userDetail">
+              <span class="role">Admin</span>
+          </div>
         </div>
     </div>
 </template>
@@ -16,11 +18,16 @@ export default {
 </script>
 <style scoped>
 .navbar {
-  padding: 20px;
-  border-radius: 10px;
+  width: 98%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .user {
@@ -30,6 +37,8 @@ export default {
 
 .user img {
   margin-right: 10px; /* Add margin between the image and userDetail */
+  height: 70px;
+  width: 70px;
 }
 
 .userDetail {
@@ -39,5 +48,11 @@ export default {
 
 .role {
   font-weight: 500;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.welcome.h1{
+  /* font-size: medium; */
+  font-weight: 800;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /*change font*/
 }
 </style>
