@@ -3,24 +3,40 @@
         <table id="content-creators">
             <tr>
                 <th>Name</th>
-                <th>Facebook Followers</th>
-                <th>Instagram Followers</th>
-                <th>Tiktok Followers</th>
+                <th>
+                    <img src="/facebook.svg" alt="Facebook">
+                    Followers
+                </th>
+                <th>
+                    <img src="/instagram.svg" alt="Instagram">
+                    Followers
+                </th>
+                <th>
+                    <img src="/tiktok-sq.svg" alt="Tiktok">
+                    Followers
+                </th>
                 <th>Category</th>
             </tr>
-            <tr>
-                <td>Aidil</td>
-                <td>100</td>
-                <td>100</td>
-                <td>100</td>
-                <td>Education</td>
+            <tr v-for="creator in contentCreators" :key="creator.id">
+                <td>{{ creator.Facebook.name }}</td>
+                <td>{{ creator.Facebook.followers }}</td>
+                <td>{{ creator.Instagram.followers_count }}</td>
+                <td>{{ creator.Tiktok.followers_count }}</td>
+                <td>{{ creator.Facebook.category }}</td>
             </tr>
         </table>
     </div>
 </template>
 
 <script>
-    export default{}
+    import contentCreatorsData from '@/data/contentCreators.json';
+    export default{
+        data(){
+            return {
+                contentCreators: contentCreatorsData.content_creator
+            };
+        }
+    };
 </script>
 
 <style scoped>
@@ -29,7 +45,6 @@
         margin-left: 10px;
         width: 100%;
         font-family: 'Arial', sans-serif;
-        
     }
 
     #content-creators th, #content-creators td {
@@ -55,5 +70,9 @@
     }
     #content-creators td:first-child {
         font-weight: bold;
+    }
+    #content-creators img {
+        height: 18px;
+        width: 18px;
     }
 </style>
