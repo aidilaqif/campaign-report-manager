@@ -2,7 +2,7 @@
     <div class="navbar">
         <div class="welcome">Welcome Back!</div>
         <div class="user">
-            <img src="" alt="logo" />
+            <img src="/man.png" alt="logo" />
             <div class="userDetail">
                 <span class="role">Admin</span>
             </div>
@@ -17,10 +17,10 @@ export default {
 <style scoped>
 .navbar {
   padding: 20px;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: aqua;
 }
 
 .user {
@@ -30,6 +30,8 @@ export default {
 
 .user img {
   margin-right: 10px; /* Add margin between the image and userDetail */
+  height: 50px;
+  width: 50px;
 }
 
 .userDetail {
