@@ -7,7 +7,7 @@
     <div class="content">
       <Navbar />
       <ViewDetails/>
-      <div>viewContentCreators</div>
+      <div>All Content Creators</div>
     </div>
   </div>
 </template>
@@ -29,15 +29,15 @@ export default {
 <style scoped>
   .container{
     display : flex;
-    align-items : column;
+    align-items : row;
   }
   .sidebar {
-  flex: 1; /* Sidebar takes 1 part of the available space */
-}
+    flex: 1; /* Sidebar takes 1 part of the available space */
+  }
 
-.content {
-  flex: 2; /* Content takes 2 parts of the available space */
-  display: flex;
-  flex-direction: column;
-}
+  .content {
+    flex: 9.2; /* Content takes 2 parts of the available space */
+    display: flex;
+    flex-direction: column;
+  }
 </style>
