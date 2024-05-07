@@ -18,11 +18,13 @@
                 <th>Category</th>
             </tr>
             <tr v-for="creator in contentCreators" :key="creator.id">
-                <td>{{ creator.Facebook.name }}</td>
-                <td>{{ creator.Facebook.followers }}</td>
-                <td>{{ creator.Instagram.followers_count }}</td>
-                <td>{{ creator.Tiktok.followers_count }}</td>
-                <td>{{ creator.Facebook.category }}</td>
+                <RouterLink :to="{ name: 'creators', params: { name:encodeURIComponent(creator.Facebook.name), id: creator.id } }" tag="div" class="router-link" :style="{ color: 'inherit', textDecoration: 'inherit' }">
+                    <td>{{ creator.Facebook.name }}</td>
+                    <td>{{ creator.Facebook.followers }}</td>
+                    <td>{{ creator.Instagram.followers_count }}</td>
+                    <td>{{ creator.Tiktok.followers_count }}</td>
+                    <td>{{ creator.Facebook.category }}</td>
+                </RouterLink>
             </tr>
         </table>
     </div>
@@ -35,6 +37,12 @@
             return {
                 contentCreators: contentCreatorsData.content_creator
             };
+        },
+        methods: {
+            navigateToCreator(id) {
+                const router = router();
+                router.push({ name: 'creator', params: { id: id } });
+            }
         }
     };
 </script>
@@ -75,4 +83,7 @@
         height: 18px;
         width: 18px;
     }
+    .router-link {
+  display: contents; /* This will make the div act as if it's not there */
+}
 </style>
