@@ -25,7 +25,9 @@
       </div>
     </div>
     <div class="bottom">
-      <button @click="logout">Log Out</button>
+      <RouterLink to="/login">
+        <button @click="logout">Log Out</button>
+      </RouterLink>
     </div>
   </div>
 </template>
