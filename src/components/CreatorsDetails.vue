@@ -11,39 +11,84 @@
                 </div>
                 <button @click="download">Download</button>
             </div>
-
             <h2>Facebook</h2>
-            <p>name: {{ creator.Facebook.name }}</p>
-            <p>username: {{ creator.Facebook.username }}</p>
-            <p>intro: {{ creator.Facebook.intro }}</p>
-            <p>email: {{ creator.Facebook.email }}</p>
-            <p>permalink_url: {{ creator.Facebook.permalink_url }}</p>
-            <p>category: {{ creator.Facebook.category }}</p>
-            <p>followers: {{ creator.Facebook.followers }}</p>
-            <p>content count: {{ creator.Facebook.content_count }}</p>
-            <p>page views per day: {{ creator.Facebook.page_views_day }}</p>
-            <p>page post engagement: {{ creator.Facebook.page_post_engagement }}</p>
+                <table class="content-creator-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Intro</th>
+                    <th>Email</th>
+                    <th>Permalink URL</th>
+                    <th>Category</th>
+                    <th>Followers</th>
+                    <th>Content Count</th>
+                    <th>Page Views Per Day</th>
+                    <th>Page Post Engagement</th>
+                </tr>
+                <tr>
+                    <td>{{ creator.Facebook.name }}</td>
+                    <td>{{ creator.Facebook.username }}</td>
+                    <td>{{ creator.Facebook.intro }}</td>
+                    <td>{{ creator.Facebook.email }}</td>
+                    <td>{{ creator.Facebook.permalink_url }}</td>
+                    <td>{{ creator.Facebook.category }}</td>
+                    <td>{{ creator.Facebook.followers }}</td>
+                    <td>{{ creator.Facebook.content_count }}</td>
+                    <td>{{ creator.Facebook.page_views_day }}</td>
+                    <td>{{ creator.Facebook.page_post_engagements }}</td>
+                </tr>
+                </table>
 
-            <h2>Instagram</h2>
-            <p>name: {{ creator.Instagram.name }}</p>
-            <p>followers count: {{ creator.Instagram.followers_counts }}</p>
-            <p>media count: {{ creator.Instagram.media_count }}</p>
-            <p>reach: {{ creator.Instagram.reach }}</p>
-            <p>profile view: {{ creator.Instagram.profile_view }}</p>
-            <p>male follower demographics: {{ creator.Instagram.male_follower_demographics }}</p>
-            <p>female follower demographics: {{ creator.Instagram.female_follower_demographics }}</p>
-            <p>unknown follower demographic: {{ creator.Instagram.unknown_follower_demographic }}</p>
+                <h2>Instagram</h2>
+                <table class="content-creator-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Followers Count</th>
+                    <th>Media Count</th>
+                    <th>Reach</th>
+                    <th>Profile View</th>
+                    <th>Male Follower Demographics</th>
+                    <th>Female Follower Demographics</th>
+                    <th>Unknown Follower Demographic</th>
+                </tr>
+                <tr>
+                    <td>{{ creator.Instagram.name }}</td>
+                    <td>{{ creator.Instagram.followers_count }}</td>
+                    <td>{{ creator.Instagram.media_count }}</td>
+                    <td>{{ creator.Instagram.reach }}</td>
+                    <td>{{ creator.Instagram.profile_view }}</td>
+                    <td>{{ creator.Instagram.male_follower_demographics }}</td>
+                    <td>{{ creator.Instagram.female_follower_demographics }}</td>
+                    <td>{{ creator.Instagram.unknown_follower_demographic }}</td>
+                </tr>
+                </table>
 
-            <h2>Tiktok</h2>
-            <p>display name: {{ creator.Tiktok.display_name }}</p>
-            <p>handle name: {{ creator.Tiktok.handle_name }}</p>
-            <p>followers count: {{ creator.Tiktok.followers_count }}</p>
-            <p>videos count: {{ creator.Tiktok.videos_count }}</p>
-            <p>average views: {{ creator.Tiktok.average_views }}</p>
-            <p>average likes: {{ creator.Tiktok.average_likes }}</p>
-            <p>average shares: {{ creator.Tiktok.average_shares }}</p>
-            <p>average comments: {{ creator.Tiktok.average_comments }}</p>
-            <p>engagement rate: {{ creator.Facebook.engagement_rate }}</p>
+                <h2>Tiktok</h2>
+                <table class="content-creator-table">
+                <tr>
+                    <th>Display Name</th>
+                    <th>Handle Name</th>
+                    <th>Followers Count</th>
+                    <th>Videos Count</th>
+                    <th>Average Views</th>
+                    <th>Average Likes</th>
+                    <th>Average Shares</th>
+                    <th>Average Comments</th>
+                    <th>Engagement Rate</th>
+                </tr>
+                <tr>
+                    <td>{{ creator.Tiktok.display_name }}</td>
+                    <td>{{ creator.Tiktok.handle_name }}</td>
+                    <td>{{ creator.Tiktok.followers_count }}</td>
+                    <td>{{ creator.Tiktok.videos_count }}</td>
+                    <td>{{ creator.Tiktok.average_views }}</td>
+                    <td>{{ creator.Tiktok.average_likes }}</td>
+                    <td>{{ creator.Tiktok.average_shares }}</td>
+                    <td>{{ creator.Tiktok.average_comments }}</td>
+                    <td>{{ creator.Tiktok.engagement_rate }}</td>
+                </tr>
+                </table>
+
         </div>
         <div v-else>
             <p>No creator found with ID: {{ id }}</p>
@@ -112,6 +157,20 @@
     button:hover {
         background-color: white;
         color: rgba(64, 138, 126, 1);
+    }
+    .content-creator-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .content-creator-table th, .content-creator-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .content-creator-table th {
+        background-color: #f2f2f2;
     }
 </style>
   
