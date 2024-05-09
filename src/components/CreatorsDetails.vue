@@ -53,7 +53,6 @@
 
 <script>
     import contentCreatorsData from '@/data/contentCreators.json';
-    import XLSX from 'xlsx';
 
     export default {
     data() {
@@ -70,17 +69,6 @@
         loadCreator() {
         const creators = contentCreatorsData.content_creator;
         this.creator = creators.find(creator => creator.id === this.id);
-        },
-        download() {
-            const data = [
-                ['Name', 'Username', 'Email'],
-                [this.creator.Facebook.name, this.creator.Facebook.username, this.creator.Facebook.email]
-                // Add more rows as needed for other data
-            ];
-            const ws = XLSX.utils.aoa_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Creator Details');
-            XLSX.writeFile(wb, 'creator_details.xlsx');
         },
     }
 };
