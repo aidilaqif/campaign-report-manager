@@ -15,7 +15,7 @@
                                 <p>Username: {{ creator.Facebook.username }}</p>
                                 <p>Email: {{ creator.Facebook.email }}</p>
                             </div>
-                            <DownloadButton />
+                            <DownloadButton :tableId="id" />
                         </div>
                         <h2>Social Media Data</h2>
                         <SocialMediaDataTable />
@@ -63,8 +63,8 @@
 
 <style scoped>
     .wrapper{
-      max-width: 75%;
-      margin-inline: auto;
+      max-width: 98%;
+      margin-inline: 0%;
     }
     .container{
       display : flex;
@@ -99,7 +99,7 @@
       position: relative;
       top: 0;
       right: 0;
-      flex: 2; /* Content takes 2 parts of the available space */
+      flex: 6; /* Content takes 2 parts of the available space */
       display: flex;
       flex-direction: column;
     }
