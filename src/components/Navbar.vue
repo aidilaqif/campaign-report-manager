@@ -1,19 +1,25 @@
 <template>
     <div class="navbar">
         <div class="welcome">
-          <h1>Welcome Back!</h1>
+          <!-- <h1>Welcome Back!</h1> -->
         </div>
         <div class="user">
           <img src="/man.png" alt="logo" />
           <div class="userDetail">
-              <span class="role">Admin</span>
+            <span class="name">{{name}}</span>
+            <span class="role">{{role}}</span>
           </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-
+  data(){
+    return{
+      name: "Mr Ali",
+      role: "Admin"
+    }
+  }
 }
 </script>
 <style scoped>
@@ -46,8 +52,13 @@ export default {
   flex-direction: column;
 }
 
+.name {
+  font-weight: 800;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .role {
-  font-weight: 500;
+  font-weight: 200;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .welcome.h1{

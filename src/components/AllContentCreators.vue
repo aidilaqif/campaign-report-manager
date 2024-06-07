@@ -15,15 +15,15 @@
                     <img src="/tiktok-sq.svg" alt="Tiktok">
                     Followers
                 </th>
-                <th>Category</th>
+                <!-- <th>Category</th> -->
             </tr>
             <tr v-for="creator in contentCreators" :key="creator.id">
-                <RouterLink :to="{ name: 'creators', params: { name:encodeURIComponent(creator.Facebook.name), id: creator.id } }" tag="div" class="router-link" :style="{ color: 'inherit', textDecoration: 'inherit' }">
-                    <td>{{ creator.Facebook.name }}</td>
-                    <td>{{ creator.Facebook.followers }}</td>
-                    <td>{{ creator.Instagram.followers_count }}</td>
-                    <td>{{ creator.Tiktok.followers_count }}</td>
-                    <td>{{ creator.Facebook.category }}</td>
+                <RouterLink :to="{ name: 'creators', params: { id: creator.id } }" tag="div" class="router-link" :style="{ color: 'inherit', textDecoration: 'inherit' }">
+                    <td>{{ creator.id }}</td>
+                    <td>{{ creator.Facebook.followersCount }}</td>
+                    <td>{{ creator.Instagram.followersCount }}</td>
+                    <td>{{ creator.Tiktok.followersCount }}</td>
+                    <!-- <td>{{ creator.Facebook.category }}</td> -->
                 </RouterLink>
             </tr>
         </table>
@@ -41,7 +41,7 @@
         methods: {
             navigateToCreator(id) {
                 const router = router();
-                router.push({ name: 'creator', params: { id: id } });
+                router.push({ params: { id: id } });
             }
         }
     };
