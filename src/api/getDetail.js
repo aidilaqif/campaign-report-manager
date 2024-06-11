@@ -1,8 +1,8 @@
 import axios from "axios";
 
-async function getContentCreator() {
+async function getDetail() {
     try {
-        const response = await axios.get("https://qeceshgpw1.execute-api.ap-southeast-1.amazonaws.com/default/crm-get-creators", {
+        const response = await axios.get("https://xxcss3l4v6.execute-api.ap-southeast-1.amazonaws.com/default/creators_detail", {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -13,4 +13,4 @@ async function getContentCreator() {
     }
 }
 
-export { getContentCreator };
+export { getDetail };

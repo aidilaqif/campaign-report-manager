@@ -7,100 +7,215 @@
                 </div>
                 <div class="creators-data">
                     <h1>Creator Details</h1>
-                    <div v-if="creator">
-                        <div class="creator">
-                            <img src="/man.png" alt="Creator Thumbnail">
+                    <div v-if="filteredDetailData.length > 0">
+                        <div v-for="(creator, index) in filteredDetailData" :key="index" class="creator">
+                            <img src="/man.png" alt="Creator Thumbnail" class="creator-thumbnail">
                             <div class="creator-details">
-                                <h2>Name: {{ creator.Facebook.name }}</h2>
-                                <p>Username: {{ creator.Facebook.username }}</p>
-                                <p>Email: {{ creator.Facebook.email }}</p>
+                                <h2>Data Reference: {{ creator.dataRef }}</h2>
+                                <template v-if="creator.platforms && creator.platforms.ig">
+                                    <p>Instagram:</p>
+                                    <ul>
+                                        <li v-for="(data, startDate) in creator.platforms.ig" :key="startDate">
+                                            {{ formatDate(startDate) }}:
+                                            <ul>
+                                                <li>Avg Likes: {{ data.avgLikes }}</li>
+                                                <li>Avg Comments: {{ data.avgComments }}</li>
+                                                <li>Avg Reach: {{ data.avgReach }}</li>
+                                                <li>Avg Shares: {{ data.avgShares }}</li>
+                                                <li>Comments: {{ data.comments }}</li>
+                                                <li>Engagement Rate: {{ data.engagementRate }}</li>
+                                                <li>Followers Count: {{ data.followersCount }}</li>
+                                                <li>Likes: {{ data.likes }}</li>
+                                                <li>Profile Views: {{ data.profileViews }}</li>
+                                                <li>Reach: {{ data.reach }}</li>
+                                                <li>Shares: {{ data.shares }}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </template>
+                                <template v-if="creator.platforms && creator.platforms.tt">
+                                    <p>TikTok:</p>
+                                    <ul>
+                                        <li v-for="(data, startDate) in creator.platforms.tt" :key="startDate">
+                                            {{ formatDate(startDate) }}:
+                                            <ul>
+                                                <li>Avg Likes: {{ data.avgLikes }}</li>
+                                                <li>Avg Comments: {{ data.avgComments }}</li>
+                                                <li>Avg Reach: {{ data.avgReach }}</li>
+                                                <li>Avg Shares: {{ data.avgShares }}</li>
+                                                <li>Comments: {{ data.comments }}</li>
+                                                <li>Engagement Rate: {{ data.engagementRate }}</li>
+                                                <li>Followers Count: {{ data.followersCount }}</li>
+                                                <li>Likes: {{ data.likes }}</li>
+                                                <li>Profile Views: {{ data.profileViews }}</li>
+                                                <li>Reach: {{ data.reach }}</li>
+                                                <li>Shares: {{ data.shares }}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </template>
+                                <template v-if="creator.platforms && creator.platforms.fb">
+                                    <p>Facebook:</p>
+                                    <ul>
+                                        <li v-for="(data, startDate) in creator.platforms.fb" :key="startDate">
+                                            {{ formatDate(startDate) }}:
+                                            <ul>
+                                                <li>Avg Likes: {{ data.avgLikes }}</li>
+                                                <li>Avg Comments: {{ data.avgComments }}</li>
+                                                <li>Avg Reach: {{ data.avgReach }}</li>
+                                                <li>Avg Shares: {{ data.avgShares }}</li>
+                                                <li>Comments: {{ data.comments }}</li>
+                                                <li>Engagement Rate: {{ data.engagementRate }}</li>
+                                                <li>Followers Count: {{ data.followersCount }}</li>
+                                                <li>Likes: {{ data.likes }}</li>
+                                                <li>Profile Views: {{ data.profileViews }}</li>
+                                                <li>Reach: {{ data.reach }}</li>
+                                                <li>Shares: {{ data.shares }}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </template>
                             </div>
-                            <DownloadButton :tableId="id" />
                         </div>
-                        <h2>Social Media Data</h2>
-                        <SocialMediaDataTable />
                     </div>
                     <div v-else>
-                        <p>No creator found with ID: {{ id }}</p>
+                        <p>No data available</p>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
-
+    </div>
 </template>
 
 <script>
-    import SocialMediaDataTable from '@/components/creators/SocialMediaDataTable.vue';
-    import DownloadButton from '@/components/creators/DownloadButton.vue'
-    import contentCreatorsData from '@/data/contentCreators.json';
-    import Sidebar from '@/components/Sidebar.vue';
+import Sidebar from '@/components/Sidebar.vue';
+import { getDetail } from '@/api/getDetail';
 
-    export default {
+export default {
+    components: {
+        Sidebar
+    },
     data() {
         return {
-        name: this.$route.params.name,
-        id: this.$route.params.id,
-        creator: null
+            detailData: [],
+            filteredDetailData: []
         };
     },
-    created() {
-        this.loadCreator();
+    async created() {
+        const dataRef = this.$route.params.dataRef;
+        console.log('Data Reference:', dataRef); // Check the dataRef in console
+
+        try {
+            const response = await getDetail(); // Adjust this function to match your API call for a single creator
+            console.log('API Response:', response); // Check the response from the API
+
+            if (response.data && Array.isArray(response.data)) {
+                this.detailData = response.data.map(item => ({
+                    dataRef: item.dataRef,
+                    platforms: item.platforms
+                }));
+                this.filterData(dataRef);
+            } else {
+                console.error('Invalid response format:', response);
+            }
+        } catch (error) {
+            console.error('Error fetching content creator:', error);
+        }
     },
     methods: {
-        loadCreator() {
-        const creators = contentCreatorsData.content_creator;
-        this.creator = creators.find(creator => creator.id === this.id);
+        filterData(dataRef) {
+            this.filteredDetailData = this.detailData.filter(creator => creator.dataRef === dataRef);
         },
+        formatDate(date) {
+            if (typeof date !== 'string') {
+                return date; // Return as-is if not a string
+            }
+            // Assuming date is in the format YYYYMMDD
+            const year = date.slice(0, 4);
+            const month = parseInt(date.slice(4, 6)) - 1;
+            const day = date.slice(6, 8);
+
+            // Array of month names
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+
+            return `${parseInt(day)} ${months[month]} ${year}`;
+        }
     },
-    components: {
-        SocialMediaDataTable,
-        DownloadButton,
-        Sidebar
+    filters: {
+        capitalize: function (value) {
+            if (!value) return '';
+            value = value.toString();
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
     }
 };
 </script>
 
 <style scoped>
-    .wrapper{
-      max-width: 98%;
-      margin-inline: 0%;
-    }
-    .container{
-      display : flex;
-      align-items : row;
-    }
-    .sidebar {
-      flex: 1; /* Sidebar takes 1 part of the available space */
-    }
-    .creator {
-        width: 98%;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        /* justify-content: space-between; */
-    }
-    .creator-details{
-        margin-right: 60%;
-        flex-direction: column;
-        justify-content: center;
+.wrapper {
+    max-width: 95%;
+    margin: 0 auto;
+}
 
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.creator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.creator-thumbnail {
+    margin-right: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.creator-details {
+    flex: 1;
+}
+
+.creator-details h2 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 0;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul ul {
+    padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
     }
-    .creator img{
-        margin-right: 30px;
-        height: 150px;
-        width: 150px;
+
+    .creator {
+        flex-direction: column;
     }
-    .creators-data {
-      position: relative;
-      top: 0;
-      right: 0;
-      flex: 6; /* Content takes 2 parts of the available space */
-      display: flex;
-      flex-direction: column;
+
+    .creator-thumbnail {
+        margin: 0 auto 15px auto;
     }
+}
 </style>
