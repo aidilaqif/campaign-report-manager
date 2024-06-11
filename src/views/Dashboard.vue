@@ -17,15 +17,16 @@
           </thead>
           <tbody>
             <tr v-for="(creator, index) in contentCreatorData" :key="index">
-              <td>{{ creator.dataRef }}</td>
-              <td>{{ creator.platforms.ig }}</td>
-              <td>{{ creator.platforms.tt }}</td>
-              <td>{{ creator.platforms.fb }}</td>
+              <RouterLink :to="{ name: 'creator', params: { dataRef: creator.dataRef } }">
+                <td>{{ creator.dataRef }}</td>
+                <td>{{ creator.platforms.ig }}</td>
+                <td>{{ creator.platforms.tt }}</td>
+                <td>{{ creator.platforms.fb }}</td>
+              </RouterLink>
             </tr>
           </tbody>
         </table>
         <p v-else>No content creators found.</p>
-        <AllContentCreators />
       </div>
     </div>
   </div>
@@ -34,15 +35,12 @@
 <script>
 import Sidebar from '../components/Sidebar.vue';
 import Navbar from '../components/Navbar.vue';
-import AllContentCreators from '../components/AllContentCreators.vue';
 import { getContentCreator } from '@/api/getContentCreator';
-import { onMounted } from 'vue';
 
 export default {
   components: {
     Sidebar,
-    Navbar,
-    AllContentCreators
+    Navbar
   },
   data() {
     return {
@@ -63,7 +61,7 @@ export default {
     } catch (error) {
       console.error('Error fetching content creators:', error);
     }
-  },
+  }
 };
 </script>
 
@@ -102,5 +100,13 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
 }
 </style>
