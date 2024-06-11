@@ -6,12 +6,11 @@ async function getContentCreator() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
         return response.data;
     } catch (e) {
-        console.log(`An error occured : ${e.toString()}`)
+        console.log(`An error occurred: ${e.toString()}`);
     }
 }
-// const response = await fetch("https://jpdewfhwo9.execute-api.ap-southeast-1.amazonaws.com/default/crm-get-creators")
-// console.log(response)
-export { getContentCreator }
+
+export { getContentCreator };
