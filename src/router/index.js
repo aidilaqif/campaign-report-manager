@@ -15,11 +15,11 @@ const router = createRouter({
             component: () => import('../views/Login.vue')
         },
         {
-            path: '/creators/:id',
-            name: 'creators',
-            component: () => import('../views/Creators.vue'),
+            path: '/creators/:dataRef',
+            name: 'creator',
+            component: () => import('../views/Creators.vue')
         }
     ]
-})
+});
 
-export default router
+export default router;
