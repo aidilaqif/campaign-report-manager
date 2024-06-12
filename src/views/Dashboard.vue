@@ -17,12 +17,14 @@
           </thead>
           <tbody>
             <tr v-for="(creator, index) in contentCreatorData" :key="index">
-              <RouterLink :to="{ name: 'creator', params: { dataRef: creator.dataRef } }">
-                <td>{{ creator.dataRef }}</td>
-                <td>{{ creator.platforms.ig }}</td>
-                <td>{{ creator.platforms.tt }}</td>
-                <td>{{ creator.platforms.fb }}</td>
-              </RouterLink>
+              <td>
+                <RouterLink :to="{ name: 'creator', params: { dataRef: creator.dataRef } }">
+                  {{ creator.dataRef }}
+                </RouterLink>
+              </td>
+              <td>{{ creator.platforms.ig }}</td>
+              <td>{{ creator.platforms.tt }}</td>
+              <td>{{ creator.platforms.fb }}</td>
             </tr>
           </tbody>
         </table>
@@ -75,13 +77,13 @@ export default {
   flex-direction: row;
 }
 .sidebar {
-  flex: 1; /* Sidebar takes 1 part of the available space */
+  flex: 1;
 }
 .content {
   position: relative;
   top: 0;
   right: 0;
-  flex: 12; /* Content takes 12 parts of the available space */
+  flex: 6;
   display: flex;
   flex-direction: column;
 }
@@ -95,7 +97,7 @@ table {
 th, td {
   border: 1px solid #dddddd;
   text-align: center;
-  padding: 8px;
+  padding: 15px;
 }
 
 th {
@@ -104,9 +106,20 @@ th {
 
 tbody tr {
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 tbody tr:hover {
   background-color: #f9f9f9;
+}
+
+RouterLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+RouterLink:hover {
+  text-decoration: underline;
 }
 </style>
