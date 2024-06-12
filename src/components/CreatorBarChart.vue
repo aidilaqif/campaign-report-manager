@@ -29,15 +29,27 @@ export default {
       const labels = this.data.map((item, index) => `Entry ${index + 0}`);
       const values = this.data.map(item => item.avgLikes);
 
-      // Determine the label based on the platform
+      // Determine the label and color based on the platform
       const platformLabel = this.platform.charAt(0).toUpperCase() + this.platform.slice(1);
+
+      let backgroundColor, borderColor;
+      if (this.platform.toLowerCase() === 'instagram') {
+        backgroundColor = 'rgba(255, 99, 132, 0.2)'; // Red
+        borderColor = 'rgba(255, 99, 132, 1)';
+      } else if (this.platform.toLowerCase() === 'tiktok') {
+        backgroundColor = 'rgba(128, 128, 128, 0.2)'; // Grey
+        borderColor = 'rgba(128, 128, 128, 1)';
+      } else if (this.platform.toLowerCase() === 'facebook') {
+        backgroundColor = 'rgba(54, 162, 235, 0.2)'; // Blue
+        borderColor = 'rgba(54, 162, 235, 1)';
+      }
 
       const chartData = {
         labels: labels,
         datasets: [{
           label: `${platformLabel} Average Likes`,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: backgroundColor,
+          borderColor: borderColor,
           borderWidth: 1,
           data: values
         }]
@@ -58,5 +70,6 @@ export default {
   }
 };
 </script>
+
 
   
