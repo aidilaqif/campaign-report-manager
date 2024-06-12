@@ -13,6 +13,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
+    "chartjs": "^0.3.24",
     "file-saver": "^2.0.5",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
