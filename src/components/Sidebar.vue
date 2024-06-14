@@ -99,7 +99,7 @@ export default {
   gap: 10px;
   width: 100%;
   max-width: 400px;
-  padding-bottom: 300px;
+  padding-bottom: 375px;
   /* Set a max-width for the list */
 }
 
