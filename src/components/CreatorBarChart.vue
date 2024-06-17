@@ -27,7 +27,7 @@ export default {
 
       // Extracting labels and data values
       const labels = this.data.map((item, index) => `Entry ${index + 0}`);
-      const values = this.data.map(item => item.avgLikes);
+      const values = this.data.map(item => item.followersCount);
 
       // Determine the label and color based on the platform
       const platformLabel = this.platform.charAt(0).toUpperCase() + this.platform.slice(1);
@@ -47,9 +47,15 @@ export default {
       const chartData = {
         labels: labels,
         datasets: [{
+<<<<<<< Updated upstream
           label: `${platformLabel} Average Likes`,
           backgroundColor: backgroundColor,
           borderColor: borderColor,
+=======
+          label: `${platformLabel} Followers`,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+>>>>>>> Stashed changes
           borderWidth: 1,
           data: values
         }]

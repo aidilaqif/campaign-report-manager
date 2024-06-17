@@ -1,5 +1,8 @@
 <template>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
   <div>
     <div class="wrapper">
       <div class="container">
@@ -79,6 +82,20 @@
                 <CreatorBarChart :data="creator.platforms.ig" platform="Instagram" v-if="creator.platforms && creator.platforms.ig" />
                 <CreatorBarChart :data="creator.platforms.tt" platform="TikTok" v-if="creator.platforms && creator.platforms.tt" />
                 <CreatorBarChart :data="creator.platforms.fb" platform="Facebook" v-if="creator.platforms && creator.platforms.fb" />
+<<<<<<< Updated upstream
+=======
+                <button @click="toggleDropdown" class="dropdown-toggle">
+                  {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
+                </button>
+                <div v-if="showDropdown" class="dropdown-menu">
+                  <select id="attributes" v-model="selectedAttributes" multiple size="10">
+                    <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{ capitalize(attribute) }}</option>
+                  </select>
+                </div>
+                <CreatorLineChart :data="creator.platforms.ig" :selected-attributes="selectedAttributes" platform="Instagram" v-if="creator.platforms && creator.platforms.ig" />
+                <CreatorLineChart :data="creator.platforms.tt" :selected-attributes="selectedAttributes" platform="TikTok" v-if="creator.platforms && creator.platforms.tt" />
+                <CreatorLineChart :data="creator.platforms.fb" :selected-attributes="selectedAttributes" platform="Facebook" v-if="creator.platforms && creator.platforms.fb" />
+>>>>>>> Stashed changes
               </div>
             </div>
           </div>
@@ -91,20 +108,34 @@
   </div>
 </template>
 
+
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import { getDetail } from '@/api/getDetail';
 import CreatorBarChart from '@/components/CreatorBarChart.vue';
+import CreatorLineChart from '@/components/CreatorLineChart.vue';
 
 export default {
   components: {
     Sidebar,
+<<<<<<< Updated upstream
     CreatorBarChart
+=======
+    CreatorBarChart,
+    CreatorLineChart
+>>>>>>> Stashed changes
   },
   data() {
     return {
       detailData: [],
+<<<<<<< Updated upstream
       filteredDetailData: []
+=======
+      filteredDetailData: [],
+      selectedAttributes: ['avgLikes'], // Default selected attribute
+      attributes: ['avgLikes', 'avgComments', 'avgReach', 'avgShares', 'comments', 'engagementRate', 'followersCount', 'likes', 'profileViews', 'reach', 'shares'], // List of all attributes
+      showDropdown: false // Controls the visibility of the dropdown menu
+>>>>>>> Stashed changes
     };
   },
   async created() {
@@ -143,6 +174,7 @@ export default {
 
       // Array of month names
       const months = ['January', 'February', 'March', 'April', 'May', 'June',
+<<<<<<< Updated upstream
                       'July', 'August', 'September', 'October', 'November', 'December'];
 
       return `${parseInt(day)} ${months[month]} ${year}`;
@@ -153,24 +185,44 @@ export default {
       if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
+=======
+        'July', 'August', 'September', 'October', 'November', 'December'];
+
+      return `${parseInt(day)} ${months[month]} ${year}`;
+    },
+    capitalize(value) {
+      if (!value) return '';
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+>>>>>>> Stashed changes
     }
   }
 };
 </script>
 
+
 <style scoped>
 /* Existing styles */
 .wrapper {
+<<<<<<< Updated upstream
     max-width: 95%;
     margin: 0 auto;
+=======
+  max-width: 100%;
+  margin: 0 auto;
+>>>>>>> Stashed changes
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .sidebar {
+<<<<<<< Updated upstream
     flex: 1;
 }
 
@@ -194,38 +246,85 @@ export default {
 .creator-details {
     flex: 1;
     width: 100%; /* Ensures the chart takes full width of its container */
+=======
+  flex: 0.6;
+}
+
+.creator {
+  display: flex;
+  flex-direction: column;
+  /* Adjusted for better alignment of chart and creator details */
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.creator-thumbnail {
+  margin-bottom: 10px;
+  /* Adjusted to provide spacing between image and chart */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.creator-details {
+  flex: 1;
+  width: 100%;
+  /* Ensures the chart takes full width of its container */
+>>>>>>> Stashed changes
 }
 
 .creator-details h2 {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 p {
-    margin: 0;
-    font-weight: bold;
+  margin: 0;
+  font-weight: bold;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 ul ul {
-    padding-left: 20px;
+  padding-left: 20px;
+}
+
+select {
+  margin: 10px 0;
+}
+
+.dropdown-toggle {
+  margin-top: 10px;
+}
+
+.dropdown-menu {
+  margin-top: 10px;
 }
 
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+  .container {
+    flex-direction: column;
+  }
 
+<<<<<<< Updated upstream
     .creator {
         margin-bottom: 30px; /* Increased margin for better separation between creators */
     }
+=======
+  .creator {
+    margin-bottom: 30px;
+    /* Increased margin for better separation between creators */
+  }
+>>>>>>> Stashed changes
 
-    .creator-thumbnail {
-        margin: 0 auto 10px auto;
-    }
+  .creator-thumbnail {
+    margin: 0 auto 10px auto;
+  }
 }
 </style>
 
