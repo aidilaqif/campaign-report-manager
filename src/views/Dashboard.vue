@@ -15,7 +15,8 @@
             <option value="fb">Facebook Followers</option>
           </select>
         </div>
-        <table v-if="contentCreatorData.length > 0">
+        <div v-if="loading" class="loading">Loading...</div>
+        <table v-else-if="contentCreatorData.length > 0">
           <thead>
             <tr>
               <th>Name</th>
@@ -27,7 +28,8 @@
           <tbody>
             <tr v-for="(creator, index) in contentCreatorData" :key="index">
               <td>
-                <RouterLink :to="{ name: 'creator', params: { dataRef: creator.dataRef } }">
+                <RouterLink
+                  :to="{ name: 'creator', params: { dataRef: creator.dataRef, name: creator.name, image: creator.image } }">
                   <img :src="creator.image" alt="creator image" class="creator-image" />
                   <div>{{ creator.name }}</div>
                 </RouterLink>
@@ -57,7 +59,8 @@ export default {
   data() {
     return {
       contentCreatorData: [],
-      sortCriteria: 'name'
+      sortCriteria: 'name',
+      loading: true
     };
   },
   async created() {
@@ -93,11 +96,16 @@ export default {
           name: creators[index].name,
           image: creators[index].image
         }));
+
+        // Sort content creators by default criteria
+        this.sortContentCreators();
       } else {
         console.error('Invalid response format:', response);
       }
     } catch (error) {
       console.error('Error fetching content creators:', error);
+    } finally {
+      this.loading = false; // Update loading state
     }
   },
   methods: {
@@ -121,13 +129,16 @@ export default {
   max-width: 95%;
   margin-inline: auto;
 }
+
 .container {
   display: flex;
   flex-direction: row;
 }
+
 .sidebar {
   flex: 1;
 }
+
 .content {
   position: relative;
   top: 0;
@@ -144,13 +155,19 @@ export default {
   gap: 10px;
 }
 
+.loading {
+  margin-top: 20px;
+  text-align: center;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #dddddd;
   text-align: center;
   padding: 15px;
