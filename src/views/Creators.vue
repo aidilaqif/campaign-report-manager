@@ -177,7 +177,7 @@ export default {
   <style scoped>
   /* Existing styles */
   .wrapper {
-      max-width: 95%;
+      max-width: 50%;
       margin: 0 auto;
   }
   
