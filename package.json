@@ -15,12 +15,15 @@
     "chart.js": "^4.4.3",
     "chartjs": "^0.3.24",
     "file-saver": "^2.0.5",
+    "html2pdf.js": "^0.10.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
     "xlsx-js-style": "^1.2.0"
   },
   "devDependencies": {
+    "@types/node": "^20.14.4",
     "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.2.8"
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1"
   }
 }
