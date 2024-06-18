@@ -47,15 +47,9 @@ export default {
       const chartData = {
         labels: labels,
         datasets: [{
-<<<<<<< Updated upstream
           label: `${platformLabel} Average Likes`,
           backgroundColor: backgroundColor,
           borderColor: borderColor,
-=======
-          label: `${platformLabel} Followers`,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
->>>>>>> Stashed changes
           borderWidth: 1,
           data: values
         }]
