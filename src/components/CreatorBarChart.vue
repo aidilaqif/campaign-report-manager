@@ -37,8 +37,8 @@ export default {
         backgroundColor = 'rgba(255, 99, 132, 0.2)'; // Red
         borderColor = 'rgba(255, 99, 132, 1)';
       } else if (this.platform.toLowerCase() === 'tiktok') {
-        backgroundColor = 'rgba(128, 128, 128, 0.2)'; // Grey
-        borderColor = 'rgba(128, 128, 128, 1)';
+        backgroundColor = 'rgba(0, 0, 0, 0.2)'; // Grey
+        borderColor = 'rgba(0, 0, 0, 1)';
       } else if (this.platform.toLowerCase() === 'facebook') {
         backgroundColor = 'rgba(54, 162, 235, 0.2)'; // Blue
         borderColor = 'rgba(54, 162, 235, 1)';
