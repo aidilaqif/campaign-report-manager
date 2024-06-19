@@ -73,8 +73,16 @@ export default {
   background-color: #408A7E;
   color: white;
   /* padding: 2vw; */
+  overflow-y: auto; /* Add this to enable vertical scrolling */
+  padding-bottom: 50px; /* Add padding at the bottom for the logout button */
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding-bottom: 0; /* Remove padding at the bottom for smaller screens */
+    overflow-y: hidden; /* Disable vertical scrolling for smaller screens */
+  }
+}
 
 .top {
   /* width: 100%;

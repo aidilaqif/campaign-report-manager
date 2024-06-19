@@ -16,7 +16,7 @@
           </select>
         </div>
         <div v-if="loading" class="loading">Loading...</div>
-        <table v-else-if="contentCreatorData.length > 0">
+        <table v-else-if="contentCreatorData.length > 0" class="styled-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -29,9 +29,11 @@
             <tr v-for="(creator, index) in contentCreatorData" :key="index">
               <td>
                 <RouterLink
-                  :to="{ name: 'creator', params: { dataRef: creator.dataRef, name: creator.name, image: creator.image } }">
+                  :to="{ name: 'creator', params: { dataRef: creator.dataRef, name: creator.name, image: creator.image } }"
+                  class="creator-link"
+                >
                   <img :src="creator.image" alt="creator image" class="creator-image" />
-                  <div>{{ creator.name }}</div>
+                  <div class="creator-name">{{ creator.name }}</div>
                 </RouterLink>
               </td>
               <td>{{ creator.platforms.ig }}</td>
@@ -126,83 +128,170 @@ export default {
 
 <style scoped>
 .wrapper {
-  max-width: 95%;
-  margin-inline: auto;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   display: flex;
+  flex-grow: 1;
   flex-direction: row;
 }
 
 .sidebar {
-  flex: 1;
+  flex: 0 0 10%;
+  background-color: #f1f1f1;
+  color: #f1f1f1;
 }
 
 .content {
-  position: relative;
-  top: 0;
-  right: 0;
-  flex: 6;
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
+  background-color: #f1f6f9;
+  color: #212a3e;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .sort-options {
-  margin: 20px 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  background-color: #f1f6f9;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgb(0, 0, 0,0.1);
+}
+
+.sort-options label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+  position: relative;
+}
+
+.sort-select:hover {
+  border-color: #408a7e;
+}
+
+.sort-select:focus {
+  border-color: #408a7e;
+  box-shadow: 0 0 0 2px rgba(64, 138, 126, 0.2);
+}
+
+/* Style the dropdown arrow */
+.sort-select::after {
+  content: '\25BE'; /* Unicode character for down arrow */
+  font-size: 12px;
+  color: #555;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+/* Style the dropdown options */
+.sort-select select {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1; /* Ensure the options appear above other elements */
+}
+
+.sort-select select option {
+  padding: 8px 12px;
+  background-color: #fff; /* Background color of options */
+  color: #333; /* Text color of options */
+  font-family: Arial, sans-serif; /* Font family of options */
+}
+
+.sort-select select option:hover {
+  background-color: #f1f1f1; /* Background color of options on hover */
+}
+
+.sort-select select option:checked {
+  background-color: #408a7e; /* Background color of selected option */
+  color: #fff; /* Text color of selected option */
 }
 
 .loading {
-  margin-top: 20px;
   text-align: center;
+  font-size: 24px;
 }
 
-table {
+.styled-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  font-size: 1rem;
 }
 
-th,
-td {
-  border: 1px solid #dddddd;
+.styled-table thead tr {
+  background-color: #408A7E;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
   text-align: center;
-  padding: 15px;
+  font-size: 18px;
 }
 
-th {
-  background-color: #f2f2f2;
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  text-align: center;
+  font-size: 20px;
 }
 
-tbody tr {
-  cursor: pointer;
-  transition: background-color 0.3s;
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
 }
 
-tbody tr:hover {
-  background-color: #f9f9f9;
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-img.creator-image {
+.creator-image {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.creator-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit the text color */
 }
 
-RouterLink {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.creator-link:hover {
+  text-decoration: underline; /* Underline on hover */
+  color:#408A7E
 }
-
-RouterLink:hover {
-  text-decoration: underline;
+.creator-name{
+  font-size: 18px;
+  font-weight:500;
+  margin-top: 10px;
 }
 </style>
