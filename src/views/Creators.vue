@@ -1,94 +1,49 @@
 <template>
-    <div>
-      <div class="wrapper">
-        <div class="container">
-          <div class="sidebar">
-            <Sidebar />
-          </div>
-          <div class="creators-data">
-            <h1>Creator Details</h1>
+  <div>
+    <div class="wrapper">
+      <div class="container">
+        <div class="sidebar">
+          <Sidebar />
+        </div>
+        <div class="creators-data">
+          <h1>Creator Details</h1>
+          <button @click="downloadPDF" class="download-button">Download as PDF</button>
+          <br>
+          <br>
+          <div id="pdf-content">
             <div v-if="filteredDetailData.length > 0">
               <div v-for="(creator, index) in filteredDetailData" :key="index" class="creator">
-                <img src="/man.png" alt="Creator Thumbnail" class="creator-thumbnail">
+                <h2><img src="/man.png" alt="Creator Thumbnail" class="creator-thumbnail">Name : {{ creator.dataRef }}</h2>
                 <div class="creator-details">
-                  <h2>Data Reference: {{ creator.dataRef }}</h2>
-                  <template v-if="creator.platforms && creator.platforms.ig">
-                    <p>Instagram:</p>
-                    <ul>
-                      <li v-for="(data, startDate) in creator.platforms.ig" :key="startDate">
-                        {{ formatDate(startDate) }}:
-                        <ul>
-                          <li>Avg Likes: {{ data.avgLikes }}</li>
-                          <li>Avg Comments: {{ data.avgComments }}</li>
-                          <li>Avg Reach: {{ data.avgReach }}</li>
-                          <li>Avg Shares: {{ data.avgShares }}</li>
-                          <li>Comments: {{ data.comments }}</li>
-                          <li>Engagement Rate: {{ data.engagementRate }}</li>
-                          <li>Followers Count: {{ data.followersCount }}</li>
-                          <li>Likes: {{ data.likes }}</li>
-                          <li>Profile Views: {{ data.profileViews }}</li>
-                          <li>Reach: {{ data.reach }}</li>
-                          <li>Shares: {{ data.shares }}</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </template>
-                  <template v-if="creator.platforms && creator.platforms.tt">
-                    <p>TikTok:</p>
-                    <ul>
-                      <li v-for="(data, startDate) in creator.platforms.tt" :key="startDate">
-                        {{ formatDate(startDate) }}:
-                        <ul>
-                          <li>Avg Likes: {{ data.avgLikes }}</li>
-                          <li>Avg Comments: {{ data.avgComments }}</li>
-                          <li>Avg Reach: {{ data.avgReach }}</li>
-                          <li>Avg Shares: {{ data.avgShares }}</li>
-                          <li>Comments: {{ data.comments }}</li>
-                          <li>Engagement Rate: {{ data.engagementRate }}</li>
-                          <li>Followers Count: {{ data.followersCount }}</li>
-                          <li>Likes: {{ data.likes }}</li>
-                          <li>Profile Views: {{ data.profileViews }}</li>
-                          <li>Reach: {{ data.reach }}</li>
-                          <li>Shares: {{ data.shares }}</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </template>
-                  <template v-if="creator.platforms && creator.platforms.fb">
-                    <p>Facebook:</p>
-                    <ul>
-                      <li v-for="(data, startDate) in creator.platforms.fb" :key="startDate">
-                        {{ formatDate(startDate) }}:
-                        <ul>
-                          <li>Avg Likes: {{ data.avgLikes }}</li>
-                          <li>Avg Comments: {{ data.avgComments }}</li>
-                          <li>Avg Reach: {{ data.avgReach }}</li>
-                          <li>Avg Shares: {{ data.avgShares }}</li>
-                          <li>Comments: {{ data.comments }}</li>
-                          <li>Engagement Rate: {{ data.engagementRate }}</li>
-                          <li>Followers Count: {{ data.followersCount }}</li>
-                          <li>Likes: {{ data.likes }}</li>
-                          <li>Profile Views: {{ data.profileViews }}</li>
-                          <li>Reach: {{ data.reach }}</li>
-                          <li>Shares: {{ data.shares }}</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </template>
-                  <CreatorBarChart :data="creator.platforms.ig" platform="Instagram" v-if="creator.platforms && creator.platforms.ig" />
-                  <CreatorBarChart :data="creator.platforms.tt" platform="TikTok" v-if="creator.platforms && creator.platforms.tt" />
-                  <CreatorBarChart :data="creator.platforms.fb" platform="Facebook" v-if="creator.platforms && creator.platforms.fb" />
+                  <!-- <h2>Data Reference: {{ creator.dataRef }}</h2> -->
                   <button @click="toggleDropdown" class="dropdown-toggle">
                     {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
                   </button>
                   <div v-if="showDropdown" class="dropdown-menu">
                     <select id="attributes" v-model="selectedAttributes" multiple size="10">
-                      <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{ capitalize(attribute) }}</option>
+                      <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{
+                        capitalize(attribute) }}</option>
                     </select>
                   </div>
-                  <CreatorLineChart :data="creator.platforms.ig" :selected-attributes="selectedAttributes" platform="Instagram" v-if="creator.platforms && creator.platforms.ig" />
-                  <CreatorLineChart :data="creator.platforms.tt" :selected-attributes="selectedAttributes" platform="TikTok" v-if="creator.platforms && creator.platforms.tt" />
-                  <CreatorLineChart :data="creator.platforms.fb" :selected-attributes="selectedAttributes" platform="Facebook" v-if="creator.platforms && creator.platforms.fb" />
+                  <br>
+                  <br>
+                  <div v-if="creator.platforms" class="charts-row">
+                    <div v-if="creator.platforms.ig" class="chart-container">
+                      <CreatorBarChart :data="creator.platforms.ig" platform="Instagram" />
+                      <CreatorLineChart :data="creator.platforms.ig" :selected-attributes="selectedAttributes"
+                        platform="Instagram" />
+                    </div>
+                    <div v-if="creator.platforms.tt" class="chart-container">
+                      <CreatorBarChart :data="creator.platforms.tt" platform="TikTok" />
+                      <CreatorLineChart :data="creator.platforms.tt" :selected-attributes="selectedAttributes"
+                        platform="TikTok" />
+                    </div>
+                    <div v-if="creator.platforms.fb" class="chart-container">
+                      <CreatorBarChart :data="creator.platforms.fb" platform="Facebook" />
+                      <CreatorLineChart :data="creator.platforms.fb" :selected-attributes="selectedAttributes"
+                        platform="Facebook" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,149 +54,253 @@
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import Sidebar from '@/components/Sidebar.vue';
-  import { getDetail } from '@/api/getDetail';
-  import CreatorBarChart from '@/components/CreatorBarChart.vue';
-  import CreatorLineChart from '@/components/CreatorLineChart.vue';
-  
-  export default {
-    components: {
-      Sidebar,
-      CreatorBarChart,
-      CreatorLineChart
-    },
-    data() {
-      return {
-        detailData: [],
-        filteredDetailData: [],
-        selectedAttributes: ['avgLikes'], // Default selected attribute
-        attributes: ['avgLikes', 'avgComments', 'avgReach', 'avgShares', 'comments', 'engagementRate', 'followersCount', 'likes', 'profileViews', 'reach', 'shares'], // List of all attributes
-        showDropdown: false // Controls the visibility of the dropdown menu
-      };
-    },
-    async created() {
-      const dataRef = this.$route.params.dataRef;
-      console.log('Data Reference:', dataRef); // Check the dataRef in console
-  
-      try {
-        const response = await getDetail(); // Adjust this function to match your API call for a single creator
-        console.log('API Response:', response); // Check the response from the API
-  
-        if (response.data && Array.isArray(response.data)) {
-          this.detailData = response.data.map(item => ({
-            dataRef: item.dataRef,
-            platforms: item.platforms
-          }));
-          this.filterData(dataRef);
-        } else {
-          console.error('Invalid response format:', response);
-        }
-      } catch (error) {
-        console.error('Error fetching content creator:', error);
+  </div>
+</template>
+
+<script>
+import Sidebar from '@/components/Sidebar.vue';
+import { getDetail } from '@/api/getDetail';
+import CreatorBarChart from '@/components/CreatorBarChart.vue';
+import CreatorLineChart from '@/components/CreatorLineChart.vue';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+export default {
+  components: {
+    Sidebar,
+    CreatorBarChart,
+    CreatorLineChart
+  },
+  data() {
+    return {
+      detailData: [],
+      filteredDetailData: [],
+      selectedAttributes: ['avgLikes'], // Default selected attribute
+      attributes: ['avgLikes', 'avgComments', 'avgReach', 'avgShares', 'comments', 'engagementRate', 'followersCount', 'likes', 'profileViews', 'reach', 'shares'], // List of all attributes
+      showDropdown: false // Controls the visibility of the dropdown menu
+    };
+  },
+  async created() {
+    const dataRef = this.$route.params.dataRef;
+    console.log('Data Reference:', dataRef); // Check the dataRef in console
+
+    try {
+      const response = await getDetail(); // Adjust this function to match your API call for a single creator
+      console.log('API Response:', response); // Check the response from the API
+
+      if (response.data && Array.isArray(response.data)) {
+        this.detailData = response.data.map(item => ({
+          dataRef: item.dataRef,
+          platforms: item.platforms
+        }));
+        this.filterData(dataRef);
+      } else {
+        console.error('Invalid response format:', response);
       }
-    },
-    methods: {
-      filterData(dataRef) {
-        this.filteredDetailData = this.detailData.filter(creator => creator.dataRef === dataRef);
-      },
-      formatDate(date) {
-        if (typeof date !== 'string') {
-          return date; // Return as-is if not a string
-        }
-        // Assuming date is in the format YYYYMMDD
-        const year = date.slice(0, 4);
-        const month = parseInt(date.slice(4, 6)) - 1;
-        const day = date.slice(6, 8);
-  
-        // Array of month names
-        const months = ['January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'];
-  
-        return `${parseInt(day)} ${months[month]} ${year}`;
-      },
-      capitalize(value) {
-        if (!value) return '';
-        value = value.toString();
-        return value.charAt(0).toUpperCase() + value.slice(1);
-      },
-      toggleDropdown() {
-        this.showDropdown = !this.showDropdown;
-      }
+    } catch (error) {
+      console.error('Error fetching content creator:', error);
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* Existing styles */
-  .wrapper {
-      max-width: 50%;
-      margin: 0 auto;
+  },
+  methods: {
+    filterData(dataRef) {
+      this.filteredDetailData = this.detailData.filter(creator => creator.dataRef === dataRef);
+    },
+    formatDate(date) {
+      if (typeof date !== 'string') {
+        return date; // Return as-is if not a string
+      }
+      // Assuming date is in the format YYYYMMDD
+      const year = date.slice(0, 4);
+      const month = parseInt(date.slice(4, 6)) - 1;
+      const day = date.slice(6, 8);
+
+      // Array of month names
+      const months = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+
+      return `${parseInt(day)} ${months[month]} ${year}`;
+    },
+    capitalize(value) {
+      if (!value) return '';
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
+    async downloadPDF() {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const content = document.getElementById('pdf-content');
+
+      const options = {
+        scale: 2, // Increase scale for better resolution
+        useCORS: true,
+        logging: true,
+        dpi: 300,
+        letterRendering: true
+      };
+
+      await html2canvas(content, options).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+        // Check if the content height exceeds the PDF height
+        if (pdfHeight > pdf.internal.pageSize.getHeight()) {
+          const pages = Math.ceil(pdfHeight / pdf.internal.pageSize.getHeight());
+          for (let i = 1; i < pages; i++) {
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, -i * pdf.internal.pageSize.getHeight(), pdfWidth, pdfHeight);
+          }
+        }
+
+        pdf.save('creator-details.pdf');
+      });
+    }
   }
-  
+};
+</script>
+
+<style scoped>
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 20%;
+  margin-right: 20px;
+}
+
+.creators-data {
+  flex: 1;
+}
+
+.creator {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.creator-thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.creator-details {
+  margin-left: 20px;
+}
+
+.download-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+.dropdown-toggle {
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.dropdown-toggle:hover {
+  background-color: #0056b3;
+}
+
+.dropdown-menu {
+  margin-top: 10px;
+}
+
+#attributes {
+  width: 100%;
+  height: auto;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+p,
+li {
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/* New styles for chart layout */
+.charts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.chart-container {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media print {
   .container {
-      display: flex;
-      flex-direction: row;
+    width: 100%;
   }
-  
+
   .sidebar {
-      flex: 1;
+    display: none;
   }
-  
+
+  .creators-data {
+    width: 100%;
+    margin: 0;
+  }
+
   .creator {
-      display: flex;
-      flex-direction: column; /* Adjusted for better alignment of chart and creator details */
-      align-items: center;
-      margin-bottom: 20px;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+    page-break-inside: avoid;
   }
-  
-  .creator-thumbnail {
-      margin-bottom: 10px; /* Adjusted to provide spacing between image and chart */
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+
+  .download-button,
+  .dropdown-toggle {
+    display: none;
   }
-  
-  .creator-details {
-      flex: 1;
-      width: 100%; /* Ensures the chart takes full width of its container */
+
+  body {
+    -webkit-print-color-adjust: exact;
   }
-  
-  .creator-details h2 {
-      margin-bottom: 10px;
-  }
-  
-  p {
-      margin: 0;
-      font-weight: bold;
-  }
-  
-  ul {
-      list-style-type: none;
-      padding: 0;
-  }
-  
-  ul ul {
-      padding-left: 20px;
-  }
-  
-  @media (max-width: 768px) {
-      .container {
-          flex-direction: column;
-      }
-  
-      .creator {
-          margin-bottom: 30px; /* Increased margin for better separation between creators */
-      }
-  
-      .creator-thumbnail {
-          margin: 0 auto 10px auto;
-      }
-  }
-  </style>
-  
+}
+</style>
