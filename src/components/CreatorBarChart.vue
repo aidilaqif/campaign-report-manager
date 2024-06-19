@@ -47,7 +47,7 @@ export default {
       const chartData = {
         labels: labels,
         datasets: [{
-          label: `${platformLabel} Average Likes`,
+          label: `${platformLabel} Followers`,
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           borderWidth: 1,
