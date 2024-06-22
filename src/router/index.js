@@ -18,6 +18,21 @@ const router = createRouter({
             path: '/creators/:dataRef',
             name: 'creator',
             component: () => import('../views/Creators.vue')
+        },
+        {
+            path: '/facebook',
+            name: 'facebook',
+            component: () => import('../views/Facebook.vue')
+        },
+        {
+            path: '/instagram',
+            name: 'instagram',
+            component: () => import('/Users/matoyeng/Documents/GitHub/campaign-report-manager/templates/Instagram.vue')
+        },
+        {
+            path: '/tiktok',
+            name: 'tiktok',
+            component: () => import('../views/Tiktok.vue')
         }
     ]
 });

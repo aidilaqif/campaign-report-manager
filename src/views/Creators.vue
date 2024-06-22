@@ -13,9 +13,11 @@
           <div id="pdf-content">
             <div v-if="filteredDetailData.length > 0">
               <div v-for="(creator, index) in filteredDetailData" :key="index" class="creator">
-                <h2><img src="/man.png" alt="Creator Thumbnail" class="creator-thumbnail">Name : {{ creator.dataRef }}</h2>
+                <h2>
+                  <img :src="creator.image" alt="Creator Thumbnail" class="creator-thumbnail">
+                  Name: {{ creator.name }}
+                </h2>
                 <div class="creator-details">
-                  <!-- <h2>Data Reference: {{ creator.dataRef }}</h2> -->
                   <button @click="toggleDropdown" class="dropdown-toggle">
                     {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
                   </button>
@@ -29,19 +31,51 @@
                   <br>
                   <div v-if="creator.platforms" class="charts-row">
                     <div v-if="creator.platforms.ig" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.ig" platform="Instagram" />
-                      <CreatorLineChart :data="creator.platforms.ig" :selected-attributes="selectedAttributes"
-                        platform="Instagram" />
+                      <CreatorBarChart :data="creator.platforms.ig" :dates="dates" platform="Instagram" />
+                      <CreatorLineChart :data="creator.platforms.ig" :dates="dates"
+                        :selected-attributes="selectedAttributes" platform="Instagram" />
                     </div>
                     <div v-if="creator.platforms.tt" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.tt" platform="TikTok" />
-                      <CreatorLineChart :data="creator.platforms.tt" :selected-attributes="selectedAttributes"
-                        platform="TikTok" />
+                      <CreatorBarChart :data="creator.platforms.tt" :dates="dates" platform="TikTok" />
+                      <CreatorLineChart :data="creator.platforms.tt" :dates="dates"
+                        :selected-attributes="selectedAttributes" platform="TikTok" />
                     </div>
                     <div v-if="creator.platforms.fb" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.fb" platform="Facebook" />
-                      <CreatorLineChart :data="creator.platforms.fb" :selected-attributes="selectedAttributes"
-                        platform="Facebook" />
+                      <CreatorBarChart :data="creator.platforms.fb" :dates="dates" platform="Facebook" />
+                      <CreatorLineChart :data="creator.platforms.fb" :dates="dates"
+                        :selected-attributes="selectedAttributes" platform="Facebook" />
+                    </div>
+                  </div>
+                  <h3>Platform Data</h3>
+                  <div v-if="creator.platforms">
+                    <div v-for="(platformData, platform) in creator.platforms" :key="platform">
+                      <h4>{{ platformMap[platform] }}</h4>
+                      <table class="platform-table">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Average Likes</th>
+                            <th>Likes</th>
+                            <th>Profile Views</th>
+                            <th>Followers Count</th>
+                            <th>Average Shares</th>
+                            <th>Reach</th>
+                            <th>Average Reach</th>
+                            <th>Comments</th>
+                            <th>Engagement Rate</th>
+                            <th>Average Comments</th>
+                            <th>Shares</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(data, date) in platformData" :key="date">
+                            <td>{{ formatDisplayDate(data.dataRef) }}</td>
+                            <td v-for="(value, attribute) in filteredData(data)" :key="attribute">
+                              {{ value }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -77,7 +111,20 @@ export default {
       filteredDetailData: [],
       selectedAttributes: ['avgLikes'], // Default selected attribute
       attributes: ['avgLikes', 'avgComments', 'avgReach', 'avgShares', 'comments', 'engagementRate', 'followersCount', 'likes', 'profileViews', 'reach', 'shares'], // List of all attributes
-      showDropdown: false // Controls the visibility of the dropdown menu
+      showDropdown: false, // Controls the visibility of the dropdown menu
+      platformMap: {
+        ig: 'Instagram',
+        tt: 'TikTok',
+        fb: 'Facebook'
+      }, // Mapping platform keys to display names
+      dates: [ // List of dates
+        "January 2022", "20220201", "20220301", "20220401", "20220501",
+        "20220601", "20220701", "20220801", "20220901", "20221001",
+        "20221101", "20221201", "20230101", "20230201", "20230301",
+        "20230401", "20230501", "20230601", "20230701", "20230801",
+        "20230901", "20231001", "20231101", "20231201", "20240101",
+        "20240201", "20240301", "20240401", "20240501"
+      ]
     };
   },
   async created() {
@@ -89,9 +136,33 @@ export default {
       console.log('API Response:', response); // Check the response from the API
 
       if (response.data && Array.isArray(response.data)) {
-        this.detailData = response.data.map(item => ({
+        const creators = [
+          { name: 'Khairul Amin', image: 'https://risemalaysia.com.my/wp-content/uploads/2023/04/Feature-Image-Nisa.png' },
+          { name: 'Alif Satar', image: 'https://assets.nst.com.my/images/articles/thealfi_1537274133.jpg' },
+          { name: 'Azfar Heri', image: 'https://iluminasi.com/img/upload/azfar-heri-youtube.jpg' },
+          { name: 'Mira Filzah', image: 'https://i.pinimg.com/originals/27/8d/9c/278d9c6316188a816caa69e639dd17a8.jpg' },
+          { name: 'Neelofa', image: 'https://i.pinimg.com/736x/20/28/a9/2028a9c1023915d74cfb8955cb665965.jpg' },
+          { name: 'Zizan Razak', image: 'https://th.bing.com/th/id/OIP.t8JkTC9GMEC58rwiK6iwyAAAAA?rs=1&pid=ImgDetMain' },
+          { name: 'Ebit Lew', image: 'https://yt3.ggpht.com/a-/AAuE7mAglM8gZ8yFS64nrcHQ8fqn8sgBgf8_rRZilQ=s900-mo-c-c0xffffffff-rj-k-no' },
+          { name: 'Hanis Zalikha', image: 'https://images.mubicdn.net/images/cast_member/875080/cache-666548-1620178068/image-w856.jpg?size=800x' },
+          { name: 'Syafiq Kyle', image: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/3WjbYMbX09ExkJHCa2864tTsWhF.jpg' },
+          { name: 'Meerqeen', image: 'https://i.pinimg.com/736x/74/15/56/74155672928a5a04e1a107f9bcc3b99a.jpg' },
+          { name: 'Mohamad Sofian', image: 'https://iluminasi.com/img/upload/biodata-sofyank.jpg' },
+          { name: 'Hairul Azreen', image: 'https://images.augustman.com/wp-content/uploads/sites/3/2022/12/08172821/AM-MOTY-Hairul-Azreen-1.jpg' },
+          { name: 'Janna Nick', image: 'https://i.pinimg.com/originals/da/24/3c/da243c4daab568fb397d55c1c5d4b1c9.jpg' },
+          { name: 'Aeril Zafrel', image: 'https://iluminasi.com/img/upload/biodata-aeril-zafrel-pelakon-drama-cari-aku-di-syurga-4.jpg' },
+          { name: 'Siti Nurhaliza', image: 'https://assets.nst.com.my/images/articles/SITI_NURHALIZA_1536319160.jpg' },
+          { name: 'Ustaz Adnin', image: 'https://i.pinimg.com/originals/e9/24/84/e92484acb046689d3e94ce36713949ba.jpg' },
+          { name: 'Cik B', image: 'https://th.bing.com/th/id/R.7fbebe694cb08de0d4679a48f0d8b6f5?rik=aECTsZ90thw0DA&riu=http%3a%2f%2friverbed.me%2fwp-content%2fuploads%2f2019%2f10%2f71521600_161264318292855_4487585964446914305_n.jpg&ehk=k5ucao4rwRVBIwW2TuYRP7r3nQPQ60yZq35jLEsk8lE%3d&risl=&pid=ImgRaw&r=0' },
+          { name: 'Amir Ahnaff', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjfJQ0MuanedjwHVP5K4Gk1jTFP8-5L6bWxlB6QzPD0VfnVsWpJlk9dRI3vbMZtilFBT_R8mCWs1oV015_Wqq3d1lRFF9XTqZxY96cH8N8TYPB3pxQ6N9H0Yr-IL24pYTWNF5Jf7j04P4ofUNrCcHrx428DvMyxmulfdCaEdEgNCoSiz0xy51wTHWOuA/s1080/IMG_20230129_210236.jpg' },
+          { name: 'Syahmi Sazli', image: 'https://yt3.ggpht.com/-r4mBaNSTzeY/AAAAAAAAAAI/AAAAAAAAAAA/wKwfS77AZWk/s900-c-k-no-mo-rj-c0xffffff/photo.jpg' },
+          { name: 'Zul Ariffin', image: 'https://4.bp.blogspot.com/-3AT60x3lghk/WcpIDA4BWQI/AAAAAAAAQz0/jQPs2Mb2RS4dpVmlYwT2MMGdOCRIMTStQCLcBGAs/s640/Biodata-zul-ariffin-pelakon.jpg' },
+        ];
+        this.detailData = response.data.map((item, index) => ({
           dataRef: item.dataRef,
-          platforms: item.platforms
+          platforms: item.platforms,
+          name: creators[index].name,
+          image: creators[index].image
         }));
         this.filterData(dataRef);
       } else {
@@ -105,20 +176,9 @@ export default {
     filterData(dataRef) {
       this.filteredDetailData = this.detailData.filter(creator => creator.dataRef === dataRef);
     },
-    formatDate(date) {
-      if (typeof date !== 'string') {
-        return date; // Return as-is if not a string
-      }
-      // Assuming date is in the format YYYYMMDD
-      const year = date.slice(0, 4);
-      const month = parseInt(date.slice(4, 6)) - 1;
-      const day = date.slice(6, 8);
-
-      // Array of month names
-      const months = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'];
-
-      return `${parseInt(day)} ${months[month]} ${year}`;
+    filteredData(data) {
+      const { dataRef, ...filtered } = data;
+      return filtered;
     },
     capitalize(value) {
       if (!value) return '';
@@ -128,6 +188,36 @@ export default {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },
+    // formatDate(date) {
+    //   // Assuming date format is YYYYMMDD
+    //   const year = date.substr(0, 4);
+    //   const month = date.substr(4, 2);
+    //   const formattedDate = new Date(year, month - 1).toLocaleString('en-us', { month: 'long', year: 'numeric' });
+    //   return formattedDate;
+    // },
+    formatDate(date) {
+      // Check if date is not a string
+      if (typeof date !== 'string') {
+        return 'Invalid Date';
+      }
+
+      // Check if date format is not YYYYMMDD
+      if (date.length !== 8) {
+        return 'Invalid Date Format';
+      }
+
+      // const year = date.substr(0, 4);
+      // const month = date.substr(4, 2);
+      const formattedDate = new Date(year, month - 1).toLocaleString('en-us', { month: 'long', year: 'numeric' });
+      return formattedDate;
+    },
+    formatDisplayDate(date) {
+      if (date.substr(-2) === '01') {
+        return date.slice(0, -2);
+      }
+      return date;
+    },
+
     async downloadPDF() {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const content = document.getElementById('pdf-content');
