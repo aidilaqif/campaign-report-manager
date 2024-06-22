@@ -2,46 +2,65 @@
   <div class="container">
     <div class="top">
       <div class="list">
-        <div class="logo">
-          <img src="/Icon.png" alt="logo" />
-          CReators +
-        </div>
-        <div :class="{ selected: selectedTab === 'Overview', active: activeTab === 'Overview' }"
-          @click="selectTab('Overview')">
+        <RouterLink to="/">
+          <div class="logo">
+            <img src="/Icon.png" alt="logo" />
+            CReators +
+          </div>
+        </RouterLink>
+        <RouterLink
+          :class="{ selected: selectedTab === 'Overview', active: activeTab === 'Overview' }"
+          @click="selectTab('Overview')"
+          to="/"
+        >
           <img src="/overview.svg" alt="Overview">
           <span>Overview</span>
-        </div>
-        <div :class="{ selected: selectedTab === 'Facebook', active: activeTab === 'Facebook' }"
-          @click="selectTab('Facebook')">
+        </RouterLink>
+        <RouterLink
+          :class="{ selected: selectedTab === 'Facebook', active: activeTab === 'Facebook' }"
+          @click="selectTab('Facebook')"
+          to="/facebook"
+        >
           <img src="/facebook.svg" alt="Facebook">
           <span>Facebook</span>
-        </div>
-        <div :class="{ selected: selectedTab === 'Instagram', active: activeTab === 'Instagram' }"
-          @click="selectTab('Instagram')">
+        </RouterLink>
+        <RouterLink
+          :class="{ selected: selectedTab === 'Instagram', active: activeTab === 'Instagram' }"
+          @click="selectTab('Instagram')"
+          to="/instagram"
+        >
           <img src="/instagram.svg" alt="Instagram">
           <span>Instagram</span>
-        </div>
-        <div :class="{ selected: selectedTab === 'Tiktok', active: activeTab === 'Tiktok' }"
-          @click="selectTab('Tiktok')">
+        </RouterLink>
+        <RouterLink
+          :class="{ selected: selectedTab === 'Tiktok', active: activeTab === 'Tiktok' }"
+          @click="selectTab('Tiktok')"
+          to="/tiktok"
+        >
           <img src="/tiktok-sq.svg" alt="Tiktok">
           <span>Tiktok</span>
-        </div>
+        </RouterLink>
       </div>
       <div class="bottom">
-          <RouterLink to="/login">
-            <button @click="logout">Log Out</button>
-          </RouterLink>
-        </div>
+        <RouterLink to="/login">
+          <button @click="logout">Log Out</button>
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
+
 export default {
+  components: {
+    RouterLink,
+  },
   data() {
     return {
       selectedTab: null,
-      activeTab: null
+      activeTab: null,
     };
   },
   methods: {
@@ -51,9 +70,9 @@ export default {
     },
     logout() {
       // Add your logout logic here
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -62,34 +81,20 @@ export default {
   left: 0;
   top: 0;
   bottom: 0;
-  /* width: 100px;
-  height: 95vh;
-  min-height: 95vh; */
-  /* display: block; */
-  /* justify-content: space-between; */
-  /* flex-direction: column;
-  align-items: center;
-  justify-content: center;  */
-  background-color: #408A7E;
+  background-color: #408a7e;
   color: white;
-  /* padding: 2vw; */
-  overflow-y: auto; /* Add this to enable vertical scrolling */
-  padding-bottom: 50px; /* Add padding at the bottom for the logout button */
+  overflow-y: auto;
+  padding-bottom: 50px;
 }
 
 @media (max-width: 768px) {
   .container {
-    padding-bottom: 0; /* Remove padding at the bottom for smaller screens */
-    overflow-y: hidden; /* Disable vertical scrolling for smaller screens */
+    padding-bottom: 0;
+    overflow-y: hidden;
   }
 }
 
 .top {
-  /* width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
 }
 
 .logo {
@@ -98,6 +103,7 @@ export default {
   flex-direction: column;
   gap: 5px;
   margin-bottom: 20px;
+  cursor: pointer; /* Add cursor pointer for clickable effect */
 }
 
 .list {
@@ -107,8 +113,7 @@ export default {
   gap: 10px;
   width: 100%;
   max-width: 400px;
-  padding-bottom: 275px;
-  /* Set a max-width for the list */
+  padding-bottom:25vmax;
 }
 
 .list div {
@@ -123,7 +128,7 @@ export default {
 }
 
 .list div.selected {
-  color: #408A7E;
+  color: #408a7e;
   transform: scale(1.1);
 }
 
@@ -147,11 +152,8 @@ export default {
 }
 
 .bottom {
-  /* margin-top: auto;
-  margin-bottom: 20%; */
   display: flex;
   justify-content: center;
-  /* width: 100%; */
 }
 
 button {
@@ -175,9 +177,7 @@ button:hover {
   .container {
     padding: 2vw;
     max-width: 200px;
-    /* Set a max-width for larger screens */
     margin: 0 auto;
-    /* Center the container horizontally */
   }
 }
 </style>
