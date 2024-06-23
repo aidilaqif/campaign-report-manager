@@ -7,6 +7,15 @@
         </div>
         <div class="creators-data">
           <h1>Creator Details</h1>
+          <button @click="toggleDropdown" class="dropdown-toggle">
+            {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
+          </button>
+          <div v-if="showDropdown" class="dropdown-menu">
+            <select id="attributes" v-model="selectedAttributes" multiple size="10">
+              <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{
+                capitalize(attribute) }}</option>
+            </select>
+          </div>
           <button @click="downloadPDF" class="download-button">Download as PDF</button>
           <br>
           <br>
@@ -18,15 +27,7 @@
                   Name: {{ creator.name }}
                 </h2>
                 <div class="creator-details">
-                  <button @click="toggleDropdown" class="dropdown-toggle">
-                    {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
-                  </button>
-                  <div v-if="showDropdown" class="dropdown-menu">
-                    <select id="attributes" v-model="selectedAttributes" multiple size="10">
-                      <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{
-                        capitalize(attribute) }}</option>
-                    </select>
-                  </div>
+                  <h3>Analytic Report</h3>
                   <br>
                   <br>
                   <div v-if="creator.platforms" class="charts-row">
@@ -46,7 +47,7 @@
                         :selected-attributes="selectedAttributes" platform="Facebook" />
                     </div>
                   </div>
-                  <h3>Platform Data</h3>
+                  <h3>Data Matrix</h3>
                   <div v-if="creator.platforms">
                     <div v-for="(platformData, platform) in creator.platforms" :key="platform">
                       <h4>{{ platformMap[platform] }}</h4>
@@ -324,6 +325,7 @@ export default {
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
+  margin-right: 610px;
   transition: background-color 0.3s ease;
   position: relative;
   z-index: 1;
@@ -334,6 +336,7 @@ export default {
 }
 
 .dropdown-menu {
+  margin-right: 610px;
   margin-top: 10px;
   position: absolute;
   background-color: #fff;
