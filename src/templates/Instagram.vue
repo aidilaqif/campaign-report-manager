@@ -24,17 +24,10 @@
                 </form>
             </div>
             <div class="results">
-                <h2>Prediction: {{ prediction }}</h2>
-                <h2>Model Performance:</h2>
-                <p>Mean Absolute Error: {{ mae }}</p>
-                <p>R^2 Score: {{ r2 }}</p>
-            </div>
-            <div class="visualizations">
-                <h2>Data Visualizations:</h2>
-                <img src="/likes_vs_impressions.png"
-                    alt="Likes vs Impressions">
-                <img src="/comments_vs_impressions.png"
-                    alt="Comments vs Impressions">
+                <h2>Prediction For Reach Of Unique Users: {{ prediction }}</h2>
+                <!-- <h2>Model Performance:</h2> -->
+                <!-- <p>Mean Absolute Error: {{ mae }}</p>
+                <p>R^2 Score: {{ r2 }}</p> -->
             </div>
         </div>
     </div>
