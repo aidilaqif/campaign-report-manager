@@ -119,11 +119,15 @@ body {
     margin-top: 30px;
     border: #ccc 1px solid;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .form-predict label {
     display: block;
     margin-bottom: 10px;
+    font-weight: bold;
+    color: #34495e;
 }
 
 .form-predict input[type="number"] {
@@ -132,19 +136,21 @@ body {
     margin-bottom: 10px;
     border: #ccc 1px solid;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .form-predict button[type="submit"] {
-    background: #50b3a2;
+    background: #2980b9;
     color: #fff;
     border: 0;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background 0.3s ease;
 }
 
 .form-predict button[type="submit"]:hover {
-    background: #45a091;
+    background: #3498db;
 }
 
 .results {
@@ -153,10 +159,20 @@ body {
     background: #fff;
     border: #ccc 1px solid;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .results h2 {
     margin-top: 0;
+    color: #2980b9;
+}
+.visualizations {
+    margin-top: 30px;
+}
+
+.visualizations h2 {
+    margin-top: 0;
+    color: #2980b9;
 }
 
 .visualizations img {
@@ -164,5 +180,7 @@ body {
     height: auto;
     display: block;
     margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 </style>

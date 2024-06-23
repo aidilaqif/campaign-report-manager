@@ -266,6 +266,9 @@ export default {
 
 .creators-data {
   flex: 1;
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .creator {
@@ -273,7 +276,8 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .creator-thumbnail {
@@ -282,6 +286,12 @@ export default {
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 20px;
+  margin-right: 20px;
+}
+.creator h2 {
+  display: flex;
+  align-items:center;
+  font-size: 24px;
 }
 
 .creator-details {
@@ -291,12 +301,12 @@ export default {
 .download-button {
   padding: 10px 20px;
   background-color: #408a7e;
-  
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .download-button:hover {
@@ -330,6 +340,8 @@ export default {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   position: absolute;
   z-index: 2;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .dropdown-menu.active {
@@ -342,6 +354,8 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 10px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .dropdown-menu select:focus {
@@ -391,6 +405,7 @@ ul li {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .chart-container {
@@ -398,6 +413,37 @@ ul li {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.platform-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.platform-table th,
+.platform-table td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.platform-table th {
+  background-color: #2980b9;
+  color: white;
+  font-weight: bold;
+}
+
+.platform-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.platform-table tr:hover {
+  background-color: #ddd;
 }
 
 @media print {

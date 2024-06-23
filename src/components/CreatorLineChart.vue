@@ -39,7 +39,7 @@ export default {
   methods: {
     generateChartColors() {
       const platforms = ['Instagram', 'TikTok', 'Facebook']; // List of platforms
-      const colors = ['#FF6384', '#36A2EB', '#FFCE56']; // Colors for each platform
+      const colors = ['#FF6384', '#71797E', '#36A2EB' ]; // Colors for each platform
 
       platforms.forEach((platform, index) => {
         this.chartColors[platform] = colors[index];
