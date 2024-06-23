@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pandas": "^0.0.3",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
@@ -22,6 +21,7 @@
     "jspdf": "^2.5.1",
     "ml-regression": "^5.0.0",
     "numpy": "^0.0.1",
+    "pandas": "^0.0.3",
     "python": "^0.0.4",
     "scikit-learn": "^0.1.0",
     "simple-statistics": "^7.8.3",
