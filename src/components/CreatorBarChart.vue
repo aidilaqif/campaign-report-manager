@@ -26,7 +26,7 @@ export default {
       const ctx = this.$refs.chartCanvas.getContext('2d');
 
       // Extracting labels and data values
-      const labels = this.data.map((item, index) => `Entry ${index + 0}`);
+      const labels = this.data.map((item, index) => `${index + 202201}`);
       const values = this.data.map(item => item.followersCount);
 
       // Determine the label and color based on the platform

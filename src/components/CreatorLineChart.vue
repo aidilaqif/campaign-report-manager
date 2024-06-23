@@ -49,7 +49,7 @@ export default {
       const ctx = this.$refs.chartCanvas.getContext('2d');
 
       // Extracting labels and data values
-      const labels = Object.keys(this.data);
+      const labels = this.data.map((item, index) => `${index + 202201}`);
       const datasets = this.getDatasets();
 
       // Determine the label based on the platform
