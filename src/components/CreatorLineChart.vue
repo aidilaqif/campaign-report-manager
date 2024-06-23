@@ -104,3 +104,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+canvas {
+  width: 600px;
+  height: 300px;
+}
+</style>

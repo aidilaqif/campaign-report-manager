@@ -7,16 +7,19 @@
         </div>
         <div class="creators-data">
           <h1>Creator Details</h1>
-          <button @click="toggleDropdown" class="dropdown-toggle">
-            {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
-          </button>
-          <div v-if="showDropdown" class="dropdown-menu">
-            <select id="attributes" v-model="selectedAttributes" multiple size="10">
-              <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{
-                capitalize(attribute) }}</option>
-            </select>
-          </div>
-          <button @click="downloadPDF" class="download-button">Download as PDF</button>
+          <div class="button-container">
+  <button @click="toggleDropdown" class="dropdown-toggle">
+    {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
+  </button>
+  <button @click="downloadPDF" class="download-button">Download as PDF</button>
+</div>
+
+<div v-if="showDropdown" class="dropdown-menu">
+  <select id="attributes" v-model="selectedAttributes" multiple size="10">
+    <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{ capitalize(attribute) }}</option>
+  </select>
+</div>
+
           <br>
           <br>
           <div id="pdf-content">
@@ -32,17 +35,17 @@
                   <br>
                   <div v-if="creator.platforms" class="charts-row">
                     <div v-if="creator.platforms.ig" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.ig" :dates="dates" platform="Instagram" />
+                      <!-- <CreatorBarChart :data="creator.platforms.ig" :dates="dates" platform="Instagram" /> -->
                       <CreatorLineChart :data="creator.platforms.ig" :dates="dates"
                         :selected-attributes="selectedAttributes" platform="Instagram" />
                     </div>
                     <div v-if="creator.platforms.tt" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.tt" :dates="dates" platform="TikTok" />
+                      <!-- <CreatorBarChart :data="creator.platforms.tt" :dates="dates" platform="TikTok" /> -->
                       <CreatorLineChart :data="creator.platforms.tt" :dates="dates"
                         :selected-attributes="selectedAttributes" platform="TikTok" />
                     </div>
                     <div v-if="creator.platforms.fb" class="chart-container">
-                      <CreatorBarChart :data="creator.platforms.fb" :dates="dates" platform="Facebook" />
+                      <!-- <CreatorBarChart :data="creator.platforms.fb" :dates="dates" platform="Facebook" /> -->
                       <CreatorLineChart :data="creator.platforms.fb" :dates="dates"
                         :selected-attributes="selectedAttributes" platform="Facebook" />
                     </div>
@@ -247,7 +250,6 @@ export default {
             pdf.addImage(imgData, 'PNG', 0, -i * pdf.internal.pageSize.getHeight(), pdfWidth, pdfHeight);
           }
         }
-
         pdf.save('creator-details.pdf');
       });
     }
@@ -266,7 +268,7 @@ export default {
 }
 
 .creators-data {
-  flex: 1;
+  /* flex: 50%; */
   background-color: #ecf0f1;
   padding: 20px;
   border-radius: 10px;
@@ -325,7 +327,6 @@ export default {
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
-  margin-right: 610px;
   transition: background-color 0.3s ease;
   position: relative;
   z-index: 1;
@@ -335,8 +336,13 @@ export default {
   background-color: #0056b3;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
 .dropdown-menu {
-  margin-right: 610px;
   margin-top: 10px;
   position: absolute;
   background-color: #fff;
