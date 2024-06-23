@@ -31,9 +31,9 @@
             </div>
             <div class="visualizations">
                 <h2>Data Visualizations:</h2>
-                <img src="/Users/matoyeng/Documents/GitHub/campaign-report-manager/static/likes_vs_impressions.png"
+                <img src="/likes_vs_impressions.png"
                     alt="Likes vs Impressions">
-                <img src="/Users/matoyeng/Documents/GitHub/campaign-report-manager/static/comments_vs_impressions.png"
+                <img src="/comments_vs_impressions.png"
                     alt="Comments vs Impressions">
             </div>
         </div>
@@ -42,8 +42,8 @@
 
 <script>
 import axios from 'axios';
-import Sidebar from '/Users/matoyeng/Documents/GitHub/campaign-report-manager/src/components/Sidebar.vue';
-import Navbar from '/Users/matoyeng/Documents/GitHub/campaign-report-manager/src/components/Navbar.vue';
+import Sidebar from '../components/Sidebar.vue';
+import Navbar from '../components/Navbar.vue';
 
 export default {
     components: {

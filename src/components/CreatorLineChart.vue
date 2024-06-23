@@ -22,15 +22,29 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      chartColors: {}
+    };
+  },
   watch: {
     selectedAttributes() {
       this.renderChart(); // Re-render chart when selected attributes change
     }
   },
   mounted() {
+    this.generateChartColors();
     this.renderChart();
   },
   methods: {
+    generateChartColors() {
+      const platforms = ['Instagram', 'TikTok', 'Facebook']; // List of platforms
+      const colors = ['#FF6384', '#36A2EB', '#FFCE56']; // Colors for each platform
+
+      platforms.forEach((platform, index) => {
+        this.chartColors[platform] = colors[index];
+      });
+    },
     renderChart() {
       const ctx = this.$refs.chartCanvas.getContext('2d');
 
@@ -73,12 +87,11 @@ export default {
       });
     },
     getDatasets() {
-      const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF'];
-      return this.selectedAttributes.map((attribute, index) => {
+      return this.selectedAttributes.map(attribute => {
         return {
           label: this.capitalize(attribute),
           data: Object.values(this.data).map(data => data[attribute]),
-          borderColor: colors[index % colors.length],
+          borderColor: this.chartColors[this.platform], // Use color based on platform
           fill: false
         };
       });
@@ -91,6 +104,3 @@ export default {
   }
 };
 </script>
-
-
-  

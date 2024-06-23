@@ -5,41 +5,41 @@
         <RouterLink to="/">
           <div class="logo">
             <img src="/Icon.png" alt="logo" />
-            CReators +
+            <span>Social Pulse</span>
           </div>
         </RouterLink>
-        <RouterLink
-          :class="{ selected: selectedTab === 'Overview', active: activeTab === 'Overview' }"
-          @click="selectTab('Overview')"
-          to="/"
-        >
-          <img src="/overview.svg" alt="Overview">
-          <span>Overview</span>
-        </RouterLink>
-        <RouterLink
-          :class="{ selected: selectedTab === 'Facebook', active: activeTab === 'Facebook' }"
-          @click="selectTab('Facebook')"
-          to="/facebook"
-        >
-          <img src="/facebook.svg" alt="Facebook">
-          <span>Facebook</span>
-        </RouterLink>
-        <RouterLink
-          :class="{ selected: selectedTab === 'Instagram', active: activeTab === 'Instagram' }"
-          @click="selectTab('Instagram')"
-          to="/instagram"
-        >
-          <img src="/instagram.svg" alt="Instagram">
-          <span>Instagram</span>
-        </RouterLink>
-        <RouterLink
-          :class="{ selected: selectedTab === 'Tiktok', active: activeTab === 'Tiktok' }"
-          @click="selectTab('Tiktok')"
-          to="/tiktok"
-        >
-          <img src="/tiktok-sq.svg" alt="Tiktok">
-          <span>Tiktok</span>
-        </RouterLink>
+        <div class="item">
+          <RouterLink
+            :class="{ selected: selectedTab === 'Overview', active: activeTab === 'Overview' }"
+            @click="selectTab('Overview')"
+            to="/"
+          >
+            <img src="/overview.svg" alt="Overview">
+            <span>Overview</span>
+          </RouterLink>
+        </div>
+        <div class="item">
+          <a @click.prevent="handleFacebookClick" href="#">
+            <img src="/facebook.svg" alt="Facebook">
+            <span>Facebook</span>
+          </a>
+        </div>
+        <div class="item">
+          <RouterLink
+            :class="{ selected: selectedTab === 'Instagram', active: activeTab === 'Instagram' }"
+            @click="selectTab('Instagram')"
+            to="/instagram"
+          >
+            <img src="/ig.svg" alt="Instagram">
+            <span>Instagram</span>
+          </RouterLink>
+        </div>
+        <div class="item">
+          <a @click.prevent="handleTikTokClick" href="#">
+            <img src="/tiktok-sq.svg" alt="Tiktok">
+            <span>Tiktok</span>
+          </a>
+        </div>
       </div>
       <div class="bottom">
         <RouterLink to="/login">
@@ -68,6 +68,20 @@ export default {
       this.selectedTab = tab;
       this.activeTab = tab; // Set the activeTab to show the background color
     },
+    handleTikTokClick() {
+      if (this.$route.path === '/') {
+        window.open('https://www.tiktok.com', '_blank');
+      } else if (this.$route.path.startsWith('/creators')) {
+        window.open('https://www.tiktok.com/@aerilzafrel8?lang=en', '_blank');
+      }
+    },
+    handleFacebookClick() {
+      if (this.$route.path === '/') {
+        window.open('https://www.facebook.com', '_blank');
+      } else if (this.$route.path.startsWith('/creators')) {
+        window.open('https://www.facebook.com/farelzafrel', '_blank');
+      }
+    },
     logout() {
       // Add your logout logic here
     },
@@ -91,69 +105,85 @@ export default {
   .container {
     padding-bottom: 0;
     overflow-y: hidden;
+    padding: 2vw;
+    margin: 0 auto;
   }
-}
-
-.top {
 }
 
 .logo {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   margin-bottom: 20px;
-  cursor: pointer; /* Add cursor pointer for clickable effect */
+  cursor: pointer;
+}
+
+
+.logo span {
+  text-align: center;
 }
 
 .list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px; /* Increased gap between list items */
   width: 100%;
   max-width: 400px;
-  padding-bottom:25vmax;
+  padding-bottom: 21vmax;
 }
 
-.list div {
+.item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s, color 0.3s;
-  padding: 10px;
   border-radius: 5px;
 }
-
-.list div.selected {
+.item.selected {
   color: #408a7e;
   transform: scale(1.1);
 }
 
-.list div.active {
+.item.active {
   background-color: white;
 }
 
-.list img {
-  width: 30px;
-  height: 30px;
+.item img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px; /* Added space between image and text */
+  align-items:center
 }
 
-.list span {
+.item span {
   font-size: 14px;
   font-weight: bold;
+  color: white;
+  text-align: center;
 }
 
+
 .logo img {
-  width: 50px;
-  height: 50px;
+  width: 120px;
+  height: auto;
 }
 
 .bottom {
   display: flex;
   justify-content: center;
+}
+
+a.router-link-active, a.router-link-exact-active {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
 }
 
 button {
@@ -178,6 +208,7 @@ button:hover {
     padding: 2vw;
     max-width: 200px;
     margin: 0 auto;
+    overflow-y: auto;
   }
 }
 </style>

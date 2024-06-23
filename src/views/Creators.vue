@@ -290,7 +290,8 @@ export default {
 
 .download-button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #408a7e;
+  
   color: white;
   border: none;
   border-radius: 5px;
@@ -300,17 +301,22 @@ export default {
 
 .download-button:hover {
   background-color: #45a049;
+  transition: background-color 0.3s ease;
+
 }
 
 .dropdown-toggle {
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #408a7e;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .dropdown-toggle:hover {
@@ -319,6 +325,34 @@ export default {
 
 .dropdown-menu {
   margin-top: 10px;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 2;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+.dropdown-menu select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.dropdown-menu select:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+.dropdown-menu option {
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
 }
 
 #attributes {
