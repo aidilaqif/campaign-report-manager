@@ -5,29 +5,38 @@
         </div>
         <div class="content">
             <Navbar />
-        </div>
-        <div class="predict">
-            <div class="form-predict">
-                <h2>Predict Impressions</h2>
-                <form @submit.prevent="predictImpressions">
-                    <label for="likes">Likes:</label>
-                    <input type="number" id="likes" v-model.number="form.likes" required>
-                    <label for="comments">Comments:</label>
-                    <input type="number" id="comments" v-model.number="form.comments" required>
-                    <label for="shares">Shares:</label>
-                    <input type="number" id="shares" v-model.number="form.shares" required>
-                    <label for="saves">Saves:</label>
-                    <input type="number" id="saves" v-model.number="form.saves" required>
-                    <label for="profile_visits">Profile Visits:</label>
-                    <input type="number" id="profile_visits" v-model.number="form.profileVisits" required>
-                    <button type="submit">Predict</button>
-                </form>
-            </div>
-            <div class="results">
-                <h2>Prediction For Reach Of Unique Users: {{ prediction }}</h2>
-                <!-- <h2>Model Performance:</h2> -->
-                <!-- <p>Mean Absolute Error: {{ mae }}</p>
-                <p>R^2 Score: {{ r2 }}</p> -->
+            <div class="predict">
+                <div class="form-predict">
+                    <h2>Reach Prediction</h2>
+                    <form @submit.prevent="predictImpressions">
+                        <label for="likes">Likes:</label>
+                        <input type="number" id="likes" v-model.number="form.likes" required>
+                        <label for="comments">Comments:</label>
+                        <input type="number" id="comments" v-model.number="form.comments" required>
+                        <label for="shares">Shares:</label>
+                        <input type="number" id="shares" v-model.number="form.shares" required>
+                        <label for="saves">Saves:</label>
+                        <input type="number" id="saves" v-model.number="form.saves" required>
+                        <label for="profile_visits">Profile Visits:</label>
+                        <input type="number" id="profile_visits" v-model.number="form.profileVisits" required>
+                        <button type="submit">Predict</button>
+                    </form>
+                </div>
+                <div class="results" v-if="prediction !== null">
+                    <h2>Prediction for Reach of Creator post: {{ prediction }}</h2>
+                    <h2>Calculation:</h2>
+                    <img src="/CodeCogsEqn.png" alt="calc">
+                    <br><br>
+                    <h2>Insight:</h2>
+                    <h3>Based on the engagement metrics provided, our prediction model estimates that the post will reach approximately {{ prediction }} unique users. This prediction helps you to predict the most worth content creators to hire</h3>
+                    <br><br>
+                    <h2>Next Steps:</h2>
+                    <h3>Use these insights to optimize your Hiring. Posting times, content types, and engagement tactics need to be adjust by creators to maximize the reach and engagement of their posts.</h3>
+                    <br><br>
+                    <h2>Actionable Data:</h2>
+                    <h3>Likes, comments, shares, saves, and profile visits are crucial metrics for maximizing hiring process of Creators. 
+                        By leveraging these insights, you can enhance your engagement and grow your company effectively.</h3>
+                </div>
             </div>
         </div>
     </div>
@@ -52,26 +61,28 @@ export default {
                 saves: null,
                 profileVisits: null
             },
-            prediction: null,
-            mae: null,
-            r2: null
+            prediction: null
         };
     },
     methods: {
         async predictImpressions() {
             try {
-                console.log(this.form)
-                
-                const data = {"input":[this.form.likes,this.form.comments,this.form.shares,this.form.saves,this.form.profileVisits]}
-                console.log(data)
+                const data = {
+                    input: [
+                        this.form.likes,
+                        this.form.comments,
+                        this.form.shares,
+                        this.form.saves,
+                        this.form.profileVisits
+                    ]
+                };
                 const response = await axios.post('http://127.0.0.1:5000/predict/', data);
-                
+
                 this.prediction = response.data.prediction;
-                
-                // this.mae = response.data.mae;
-                // this.r2 = response.data.r2;
             } catch (error) {
                 console.error('Error predicting impressions:', error);
+                // Optionally, you can show a user-friendly error message
+                this.prediction = null;
             }
         }
     }
@@ -113,7 +124,6 @@ body {
     border: #ccc 1px solid;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
 }
 
 .form-predict label {
@@ -159,21 +169,5 @@ body {
     margin-top: 0;
     color: #2980b9;
 }
-.visualizations {
-    margin-top: 30px;
-}
 
-.visualizations h2 {
-    margin-top: 0;
-    color: #2980b9;
-}
-
-.visualizations img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
 </style>
