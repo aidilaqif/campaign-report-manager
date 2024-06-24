@@ -1,23 +1,24 @@
 <template>
-    <div class="navbar">
-        <div class="welcome">
-          <!-- <h1>Welcome Back!</h1> -->
-        </div>
-        <div class="user">
-          <img src="/man.png" alt="logo" />
-          <div class="userDetail">
-            <span class="name">{{name}}</span>
-            <span class="role">{{role}}</span>
-          </div>
-        </div>
+  <div class="navbar">
+    <div class="welcome">
+      <!-- <h1>Welcome Back!</h1> -->
     </div>
+    <div class="user">
+      <img src="/aqil.png" alt="logo" class="profile-image" />
+      <div class="userDetail">
+        <span class="name">{{ name }}</span>
+        <span class="role">{{ role }}</span>
+      </div>
+    </div>
+
+  </div>
 </template>
 <script>
 export default {
-  data(){
-    return{
-      name: "Mr Ali",
-      role: "Admin"
+  data() {
+    return {
+      name: "Mr Aqil",
+      role: "IT Manager"
     }
   }
 }
@@ -38,11 +39,21 @@ export default {
 
 .user {
   display: flex;
-  align-items: center; /* Align items vertically */
+  align-items: center;
+  /* Align items vertically */
 }
 
+.profile-image {
+  border-radius: 50%;
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Ensure height matches width for a perfect circle */
+  object-fit: cover; /* Ensures the image covers the entire container */
+}
+
+
 .user img {
-  margin-right: 10px; /* Add margin between the image and userDetail */
+  margin-right: 10px;
+  /* Add margin between the image and userDetail */
   height: 70px;
   width: 70px;
 }
@@ -54,16 +65,18 @@ export default {
 
 .name {
   font-weight: 800;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .role {
   font-weight: 200;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.welcome.h1{
+
+.welcome.h1 {
   /* font-size: medium; */
   font-weight: 800;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /*change font*/
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /*change font*/
 }
 </style>
