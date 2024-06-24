@@ -8,17 +8,18 @@
         <div class="creators-data">
           <h1>Creator Details</h1>
           <div class="button-container">
-  <button @click="toggleDropdown" class="dropdown-toggle">
-    {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
-  </button>
-  <button @click="downloadPDF" class="download-button">Download as PDF</button>
-</div>
+            <button @click="toggleDropdown" class="dropdown-toggle">
+              {{ showDropdown ? 'Hide Attributes to Display' : 'Show Attributes to Display' }}
+            </button>
+            <button @click="downloadPDF" class="download-button">Download as PDF</button>
+          </div>
 
-<div v-if="showDropdown" class="dropdown-menu">
-  <select id="attributes" v-model="selectedAttributes" multiple size="10">
-    <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{ capitalize(attribute) }}</option>
-  </select>
-</div>
+          <div v-if="showDropdown" class="dropdown-menu">
+            <select id="attributes" v-model="selectedAttributes" multiple size="10">
+              <option v-for="attribute in attributes" :key="attribute" :value="attribute">{{ capitalize(attribute) }}
+              </option>
+            </select>
+          </div>
 
           <br>
           <br>
@@ -86,7 +87,7 @@
               </div>
             </div>
             <div v-else>
-              <p>No data available</p>
+              <img src="/Users/matoyeng/Documents/GitHub/campaign-report-manager/public/no-brain-loading-ezgif.com-resize (1).gif" alt="Loading..." />
             </div>
           </div>
         </div>
@@ -111,6 +112,7 @@ export default {
   },
   data() {
     return {
+      loadingImageUrl: 'https://media1.tenor.com/m/QWkK5z1NnbwAAAAC/no-brain-loading.gif',
       detailData: [],
       filteredDetailData: [],
       selectedAttributes: ['avgLikes'], // Default selected attribute
@@ -291,9 +293,10 @@ export default {
   margin-bottom: 20px;
   margin-right: 20px;
 }
+
 .creator h2 {
   display: flex;
-  align-items:center;
+  align-items: center;
   font-size: 24px;
 }
 
@@ -339,7 +342,8 @@ export default {
 .button-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px; /* Adjust as needed */
+  margin-bottom: 10px;
+  /* Adjust as needed */
 }
 
 .dropdown-menu {
